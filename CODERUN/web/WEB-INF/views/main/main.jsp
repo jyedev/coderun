@@ -197,7 +197,7 @@
 									alt="..." />
 								<p>코드런의 유능한 멘토진들이 회원님을 기다리고 있습니다.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='/사용자/멘토 소개.html'">바로가기</button>
+									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
 							</div>
 						</div>
 					</div>
@@ -226,7 +226,7 @@
 									alt="..." />
 								<p>개발자들의 놀이터에서 자유롭게 대화해 보세요.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='/커뮤니티/게시글 목록.html'">바로가기</button>
+									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
 							</div>
 						</div>
 					</div>
@@ -255,7 +255,7 @@
 									alt="..." />
 								<p>나의 지식을 나눠 사람들에게 배움의 기회를 주고, 의미 있는 대가를 가져가세요.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='/사용자/멘토 되기(신청 1단계).html'">바로가기</button>
+									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
 							</div>
 						</div>
 					</div>
