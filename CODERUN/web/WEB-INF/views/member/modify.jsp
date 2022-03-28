@@ -149,17 +149,15 @@
 	              <input type="password" class="form-control" name="checkPwd" id="checkPwd" placeholder="현재 비밀번호" required>
 	            </div>
 	            <div class="mb-3">
-	              <label for="recipient-name" class="col-form-label">변경할 비밀번호</label>
-	             <input type="password" class="pw form-control" name="memberPwd" id="memberPwd" placeholder="변경할 비밀번호" required>
-	              <span class="helper">
-	                8~16자리의 영문 대소문자, 숫자를 조합하여 설정
-	              </span>
-	            </div>
-	            <div class="mb-3">
-	              <label for="recipient-name" class="col-form-label">변경할 비밀번호 확인</label>
-	              <input type="password" class="pw form-control" name="memberPwd2" id="memberPwd2" placeholder="변경할 비밀번호 확인" required>
-	              &nbsp;&nbsp; <span id="same"></span>
-	            </div>
+                    <label class="col-form-label">변경할 비밀번호</label>
+                    <input type="password" class="pw form-control" name="memberPwd" id="memberPwd" placeholder="비밀번호" required>
+                    <span class="helper">8~16자리의 영문 대소문자, 숫자를 조합하여 설정</span>
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label">변경할 비밀번호 확인</label>
+                    <input type="password" class="pw form-control" name="memberPwd2" id="memberPwd2" onchange="isSame()" placeholder="비밀번호 확인" required>
+                    <span id="same"></span>
+                </div>
 	            <div class="modal-footer">
 	              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 	              <button type="button" class="btn btn-primary" id="updateBtn" onclick="clickModify(modifyPwd)">변경</button>
@@ -169,7 +167,37 @@
 				function clickModify(formName) {
 					formName.action = "${ pageContext.servletContext.contextPath }/member/modifyPassword";
 					formName.method = "post";
-					formName.submit();
+					
+					
+					if (checkPassword(document.getElementById('memberPwd').value, document.getElementById('memberPwd2').value)) {
+						formName.submit();
+					}
+
+					function checkPassword(memberPwd, memberPwd2) {
+						if (!checkExistData(memberPwd, "비밀번호를"))
+							return false;
+						if (!checkExistData(memberPwd2, "비밀번호 확인을"))
+							return false;
+						
+						var pwd1 = document.getElementById('memberPwd');
+						var pwd2 = document.getElementById('memberPwd2');
+						
+						var memberPwdRegExp = /^[a-zA-z0-9]{8,16}$/;
+						if (!memberPwdRegExp.test(pwd1.value)) {
+							alert("비밀번호는 영문 대소문자와 숫자 8~16자리로 입력해야합니다!");
+							pwd1.value = "";
+							pwd1.focus();
+							return false;
+						}
+						
+						if (memberPwd != memberPwd2) {
+							alert("비밀번호 확인이 올바르지 않습니다.");
+							pwd1.value = "";
+							pwd2.value = "";
+							pwd2.focus();
+							return false;
+						}						
+					}
 				}
 				</script>
 	            
