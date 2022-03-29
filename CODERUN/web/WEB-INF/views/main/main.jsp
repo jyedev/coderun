@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     	<c:if test="${ empty sessionScope.loginMember }">
-                    	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
+                    	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/list">멘토 소개</a></li>
                         <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
                         <!-- 로그인 전에 멘토 되기 하면 로그인 하라고 -->
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/login">멘토 되기</a></li>
@@ -33,16 +33,16 @@
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/login">로그인</a></li>
                     	</c:if>
                         <c:if test="${ sessionScope.loginMember.type eq '회원' }">
-                    	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
+                    	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/list">멘토 소개</a></li>
                         <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/apply1">멘토 되기</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
                     	</c:if>
                     	<c:if test="${ sessionScope.loginMember.type eq '멘토' }">
-                    	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
+                    	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/list">멘토 소개</a></li>
                         <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/사용자/멘토 되기(신청 1단계).html">멘토 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/information">멘토 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
                     	</c:if>
@@ -135,7 +135,7 @@
                                     <h2 class="text-uppercase">멘토 소개</h2><br>
                                     <img class="img-fluid d-block mx-auto" src="${ pageContext.servletContext.contextPath }/resources/img/mentor-search.png" alt="..." />
                                     <p>코드런의 유능한 멘토진들이 회원님을 기다리고 있습니다.</p>
-                                    <button class="btn btn-primary btn-xl" type="button" onclick="location.href='/사용자/멘토 소개.html'">바로가기</button>
+                                    <button class="btn btn-primary btn-xl" type="button" onclick="${ pageContext.servletContext.contextPath }/mentor/list'">바로가기</button>
                                 </div>
                             </div>
                         </div>
