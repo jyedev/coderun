@@ -3,12 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MentorDAO">
+	
 	<resultMap type="com.coderun.jsp.mentor.model.dto.MentorDTO" id="mentorResultMap">
 		<id property="memberId" column="MT_MEMBER_ID"/>
 		<result property="nickname" column="MT_NICKNAME"/>
 		<result property="introduce" column="MT_INTRODUCE"/>
 		<result property="language" column="MT_LANGUAGE"/>
 		
+		<association property="member" resultMap="memberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.mentor.model.dto.CurriculumDTO" id="curriculumResultMap">
+		<id property="no" column="CUR_NO"/>
+		<result property="name" column="CUR_NAME"/>
+		<result property="videoLink" column="CUR_LINK"/>
+		<result property="count" column="CUR_COUNT"/>
+		<result property="memberId" column="MT_MEMBER_ID"/>
+
 		<association property="member" resultMap="memberResultMap"/>
 	</resultMap>
 	
@@ -21,6 +32,14 @@
 		<result property="gender" column="GENDER"/>
 		<result property="type" column="MEMBER_TYPE"/>
 		<result property="freepassYn" column="FREEPASS_YN"/>
+		<result property="memberStatus" column="MEMBER_STATUS" />
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.admin.model.dto.RequestDTO" id="requestResultMap">
+		<id property="reqNO" column="REQ_NO" />
+		<result property="approveStatus" column="REQ_APROV_STATUS" />
+		<result property="reqDate" column="REQ_DATE" />
+		<result property="memberId" column="REQ_MEMBER_ID" />
 	</resultMap>
 	
 	<insert id="insertMentor">
@@ -37,4 +56,56 @@
   			, #{ introduce }
   			)
   	</insert>
+  	
+  	<select id="selectAllMentorList" parameterType="list" resultMap="mentorResultMap">
+  		SELECT
+  		M.MT_MEMBER_ID
+  	  , M.MT_NICKNAME
+  	  , M.MT_INTRODUCE
+  	  , M.MT_LANGUAGE
+  	  , R.REQ_APROV_STATUS
+  	 FROM TB_MENTOR M
+  	 JOIN TB_REQUEST R ON (M.MT_MEMBER_ID = R.REQ_MEMBER_ID)
+  	 WHERE R.REQ_APROV_STATUS = 'Y'
+	</select>
+  	
+  	
+  	
+  	<select id="selectMentorDetail" resultMap="mentorResultMap">
+  		SELECT
+  			M.MT_MEMBER_ID
+  		  , M.MT_NICKNAME
+  		  , M.MT_LANGUAGE
+  		  , M.MT_INTRODUCE
+  		FROM TB_MENTOR M
+  		JOIN TB_REQUEST R ON (M.MT_MEMBER_ID = R.REQ_MEMBER_ID)
+  		WHERE R.REQ_APROV_STATUS = 'Y'
+  		AND M.MT_MEMBER_ID = #{ memberId }
+  	</select>
+  	
+  	<update id="updateMentor">
+  		UPDATE TB_MENTOR
+  		SET MT_NICKNAME = #{nickname}
+  	      , MT_INTRODUCE = #{introduce}
+  	    WHERE MT_MEMBER_ID = #{memberId}
+  	</update>
+  	
+  	<insert id="insertCurriculum">
+		INSERT INTO TB_CURRICULUM
+		(
+		  CUR_NO
+		, CUR_NAME
+		, CUR_LINK
+		, CUR_COUNT
+		, MT_MEMBER_ID
+		)
+		VALUES
+		(
+		  SEQ_CUR_NO.NEXTVAL
+		, #{ name }
+		, #{ videoLink }
+		, 0
+		, #{ memberId }
+		)
+	</insert> 
 </mapper>
