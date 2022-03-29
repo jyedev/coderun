@@ -14,7 +14,7 @@ public class MemberDTO {
 	private String type;
 	private String freepassYn;
 	private String status;
-  private ImageDTO image;
+	private ImageDTO image;
 	
 	public MemberDTO() {}
 

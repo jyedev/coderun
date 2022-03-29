@@ -66,7 +66,7 @@ public class MentorInfoPageServlet extends HttpServlet {
 		mentorInfo.setCurriculumName(requestCurriculum);
 	
 		
-		/* 멘토테이블 닉네임, 자기소개 update */
+		
 		int mentorResult = new MentorService().updateMentor(mentorInfo);
 		
 		

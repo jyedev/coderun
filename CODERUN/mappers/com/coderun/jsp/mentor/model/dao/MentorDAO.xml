@@ -11,6 +11,9 @@
 		<result property="language" column="MT_LANGUAGE"/>
 		
 		<association property="member" resultMap="memberResultMap"/>
+		
+		
+		<collection property="curriculumName" resultMap="curriculumResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.coderun.jsp.mentor.model.dto.CurriculumDTO" id="curriculumResultMap">
@@ -20,7 +23,6 @@
 		<result property="count" column="CUR_COUNT"/>
 		<result property="memberId" column="MT_MEMBER_ID"/>
 
-		<association property="member" resultMap="memberResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
@@ -33,6 +35,8 @@
 		<result property="type" column="MEMBER_TYPE"/>
 		<result property="freepassYn" column="FREEPASS_YN"/>
 		<result property="memberStatus" column="MEMBER_STATUS" />
+		
+		<association property="image" resultMap="imageResultMap"/>
 	</resultMap>
 	
 	<resultMap type="com.coderun.jsp.admin.model.dto.RequestDTO" id="requestResultMap">
@@ -41,6 +45,14 @@
 		<result property="reqDate" column="REQ_DATE" />
 		<result property="memberId" column="REQ_MEMBER_ID" />
 	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.member.model.dto.ImageDTO" id="imageResultMap">
+		<id property="no" column="IMG_NO"/>
+		<result property="origin" column="IMG_ORIGIN"/>
+		<result property="edit" column="IMG_EDIT"/>
+		<result property="root" column="IMG_ROOT"/>
+		<result property="memberId" column="IMG_MEMBER_ID"/>
+	</resultMap> 
 	
 	<insert id="insertMentor">
   			INSERT INTO TB_MENTOR
@@ -70,18 +82,25 @@
 	</select>
   	
   	
-  	
-  	<select id="selectMentorDetail" resultMap="mentorResultMap">
-  		SELECT
-  			M.MT_MEMBER_ID
-  		  , M.MT_NICKNAME
-  		  , M.MT_LANGUAGE
-  		  , M.MT_INTRODUCE
-  		FROM TB_MENTOR M
-  		JOIN TB_REQUEST R ON (M.MT_MEMBER_ID = R.REQ_MEMBER_ID)
+	<select id="selectMentorDetail" resultMap="mentorResultMap">
+		SELECT
+  			  M.MT_MEMBER_ID
+  			, M.MT_NICKNAME
+  			, M.MT_LANGUAGE
+  			, M.MT_INTRODUCE
+ 			, C.CUR_NO
+ 			, C.CUR_NAME
+  			, C.CUR_LINK
+  			, B.IMG_ORIGIN
+  			, B.IMG_EDIT
+  			, B.IMG_ROOT
+  			FROM TB_MENTOR M
+ 	 	JOIN TB_REQUEST R ON (M.MT_MEMBER_ID = R.REQ_MEMBER_ID)
+  		JOIN TB_CURRICULUM C ON (M.MT_MEMBER_ID = C.MT_MEMBER_ID)
+  		JOIN TB_IMAGE B ON (M.MT_MEMBER_ID = B.IMG_MEMBER_ID)
   		WHERE R.REQ_APROV_STATUS = 'Y'
-  		AND M.MT_MEMBER_ID = #{ memberId }
-  	</select>
+   		  AND M.MT_MEMBER_ID = #{ memberId }
+	</select>
   	
   	<update id="updateMentor">
   		UPDATE TB_MENTOR
@@ -108,4 +127,6 @@
 		, #{ memberId }
 		)
 	</insert> 
+	
+
 </mapper>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.coderun.jsp.mentor.model.dto.CurriculumDTO;
 import com.coderun.jsp.mentor.model.dto.MentorDTO;
 import com.coderun.jsp.mentor.model.service.MentorService;
 
