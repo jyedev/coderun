@@ -2,13 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PaymentDAO">
-	<resultMap type="com.coderun.jsp.member.model.dto.PaymentDTO" id="paymentResultMap">
-		<id property="no" column="PAY_NO"/>
-		<result property="date" column="PAY_DATE"/>
-		<result property="end" column="PAY_END"/>
-		<result property="memberId" column="PAY_MEMBER_ID"/>
-		<result property="price" column="PAY_PRICE"/>
+<mapper namespace="CalculationDAO">
+	<resultMap type="com.coderun.jsp.admin.model.dto.CalculationDTO" id="calculationResultMap">
+		<id property="no" column="CAL_NO"/>
+		<result property="status" column="CAL_STATUS"/>
+		<result property="period" column="CAL_PERIOD"/>
+		<result property="percent" column="CAL_PERCENT"/>
+		<result property="amount" column="CAL_AMOUNT"/>
+		<result property="memberId" column="MT_MEMBER_ID"/>
+		<association property="member" resultMap="mentorResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.mentor.model.dto.MentorDTO" id="mentorResultMap">
+		<id property="memberId" column="MT_MEMBER_ID"/>
+		<result property="nickname" column="MT_NICKNAME"/>
+		<result property="introduce" column="MT_INTRODUCE"/>
+		<result property="language" column="MT_LANGUAGE"/>
+		
 		<association property="member" resultMap="memberResultMap"/>
 	</resultMap>
 
@@ -33,53 +43,39 @@
 		<result property="memberId" column="IMG_MEMBER_ID"/>
 	</resultMap> 
 	
-	<insert id="insertPayment" parameterType="com.coderun.jsp.member.model.dto.PaymentDTO">
-		INSERT INTO TB_PAYMENT
-		(
-		  PAY_NO
-		, PAY_END
-		, PAY_MEMBER_ID
-		, PAY_PRICE
-		)
-		VALUES
-		(
-		  SEQ_PAY_NO.NEXTVAL
-		, TO_DATE('2022-04-30', 'YYYY-MM-DD')
-		, #{ memberId }
-		, 100000
-		)
-	</insert>
-	
 	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
 		SELECT
 			   COUNT(*)
-		  FROM TB_PAYMENT
+		  FROM TB_CALCULATION
 		 <where>
 		 	<if test="searchCondition != null">
-		 	PAY_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 	MT_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
 		 	</if> 
 		 </where>
 	</select>
 	
-	<select id="selectPaymentList" resultMap="paymentResultMap">
+	<select id="selectCalculationList" resultMap="calculationResultMap">
 		SELECT
 			   A.RNUM
-			 , A.PAY_MEMBER_ID
-			 , A.PAY_DATE
-			 , A.PAY_END
-			 , A.PAY_PRICE
+			 , A.CAL_STATUS
+			 , A.CAL_PERIOD
+			 , A.CAL_PERCENT
+			 , A.CAL_AMOUNT
+			 , A.MT_MEMBER_ID
 		  FROM (SELECT ROWNUM RNUM
-		  			 , B.PAY_MEMBER_ID
-		  			 , B.PAY_DATE
-		  			 , B.PAY_END
-		  			 , B.PAY_PRICE
-		  		  FROM (SELECT C.PAY_MEMBER_ID
-		  		  			 , C.PAY_DATE
-		  		  			 , C.PAY_END
-		  		  			 , C.PAY_PRICE
-		  		  		  FROM TB_PAYMENT C
+		  			 , B.CAL_STATUS
+					 , B.CAL_PERIOD
+					 , B.CAL_PERCENT
+					 , B.CAL_AMOUNT
+					 , B.MT_MEMBER_ID
+		  		  FROM (SELECT C.CAL_STATUS
+							 , C.CAL_PERIOD
+							 , C.CAL_PERCENT
+							 , C.CAL_AMOUNT
+							 , C.MT_MEMBER_ID
+		  		  		  FROM TB_CALCULATION C
 		 <if test="searchCondition != null">
-		 WHERE PAY_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 WHERE MT_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
 		 </if>
 		 ) B
 		 <![CDATA[
