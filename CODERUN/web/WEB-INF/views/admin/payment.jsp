@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -33,7 +34,7 @@
                                 멘토 관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/payment/list">
+                            <a class="nav-link collapsed" href="${ pageConext.servletContext.contexPath }/admin/payment/list">
                                 결제 관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -54,6 +55,7 @@
                               <strong>관리자</strong>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <!-- 로그아웃 클릭 시 메인페이지 이동 + 로그아웃 상태 변경.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                               <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/member/logout">Sign out</a></li>
                             </ul>
                           </div>
@@ -63,34 +65,48 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <div class="container" style="margin: 0 auto;">
-                            <br><br><br><br>
-                            <div class="row justify-content-evenly">
-                                <div class="card col-5" style="width: 300px;">
-                                    <div class="card-body">
-                                        <br>
-                                        <div id="mento-title" class="text-center fs-4"><a href="#" onclick="location.href='관리자 멘토 관리.html'" id="mento-title" style="color: #ffc800;">멘토 요청</a></div>
-                                        <br>
-                                        <div id="mento-num" class="text-center fs-5"><a href="#" onclick="location.href='관리자 멘토 관리.html'" id="mento-num">19</a></div>
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="card col-5" style="width: 300px;">
-                                    <div class="card-body">
-                                        <br>
-                                        <div id="report-title" class="text-center fs-4"><a href="#" onclick="location.href='관리자 신고 관리.html'" id="report-title" style="color: #ffc800;">신고 요청</a></div>
-                                        <br>
-                                        <div id="report-num" class="text-center fs-5"><a href="#" onclick="location.href='관리자 신고 관리.html'" id="report-num">14</a></div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
+                        <form action="${ pageContext.servletContext.contextPath }/admin/payment/list" method="GET">
+                            <div class="input-group mb-4 border rounded-pill p-1">
+                                <div class="input-group-prepend border-0">
+                                <!-- button type=button->submit -->
+                                <%-- <select id="Condition" name="searchCondition">
+                                	<option value="id" ${ param.searchCondition == 'id' ? "selected" : "" }>아이디</option>
+                                </select> --%>
+                                <button id="button-addon4" type="submit" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
+                                </div> 
+                               <input type="search" placeholder="검색" aria-describedby="button-addon4" class="form-control bg-none border-0" style="margin-right: 20px;"
+                                name="searchValue"	value="${ param.searchValue }">
+                            </div> 
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">아이디</th>
+                                    <th scope="col">결제일</th>
+                                    <th scope="col">만료일</th>
+                                    <th scope="col">금액</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- c:forEach 추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                                    <c:forEach var="adminPayment" items="${ paymentList }">
+                                    <tr>
+                                        <td id="id">${ adminPayment.memberId }</td>
+                                        <td id="date">${ adminPayment.date }</td>
+                                        <td id="end">${ adminPayment.end }</td>
+                                        <td id="price">${ adminPayment.price }</td>
+                                    </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <br>
+							<jsp:include page="../common/paging.jsp"/>
                         </div>
                     </div>
                 </main>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/scripts.js"></script>
     </body>
 </html>

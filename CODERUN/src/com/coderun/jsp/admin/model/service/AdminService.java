@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.coderun.jsp.admin.model.dao.PaymentDAO;
+import com.coderun.jsp.admin.model.dto.PaymentDTO;
 import com.coderun.jsp.common.paging.Pagenation;
 import com.coderun.jsp.common.paging.SelectCriteria;
 import com.coderun.jsp.member.model.dao.MemberDAO;
@@ -16,12 +18,14 @@ import com.coderun.jsp.member.model.dto.MemberDTO;
 public class AdminService {
 	
 	private final MemberDAO memberDAO;
+	private final PaymentDAO paymentDAO;
 	
 	public AdminService() {
 		
 		memberDAO = new MemberDAO();
+		paymentDAO = new PaymentDAO();
 	}
-
+	
 //	public List<MemberDTO> selectAllEmp() {
 //		
 //		SqlSession session = getSqlSession();
@@ -60,6 +64,38 @@ public class AdminService {
 		
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("memList", memList);
+		returnMap.put("selectCriteria", selectCriteria);
+		
+		session.close();
+		
+		return returnMap;
+	}
+
+	public Map<String, Object> selectPaymentList(int pageNo, Map<String, String> searchMap) {
+		
+		SqlSession session = getSqlSession();
+		
+		int totalCount = paymentDAO.selectTotalCount(session, searchMap);
+		System.out.println("totalPaymentCount : " + totalCount);
+		
+		int limit = 10;
+		
+		int buttonAmount = 5;
+		
+		SelectCriteria selectCriteria = null;
+		
+		if(searchMap.get("searchCondition") != null && !"".equals(searchMap.get("searchCondition"))) {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchMap.get("searchCondition"), searchMap.get("searchValue"));
+		} else {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+		}
+		
+		System.out.println(selectCriteria);
+		
+		List<PaymentDTO> paymentList = paymentDAO.selectPaymentList(session, selectCriteria);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("paymentList", paymentList);
 		returnMap.put("selectCriteria", selectCriteria);
 		
 		session.close();
