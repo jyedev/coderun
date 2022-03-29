@@ -44,7 +44,6 @@
 	            
 	            <form method="post" action="${ pageContext.servletContext.contextPath }/profileImg/insert" enctype="multipart/form-data">
 		            <div class="d-grid col-2 mx-auto">
-		        		<div class="imgfix">
 						<!-- c:if문 작성 -->
 						<c:if test="${ empty loginMember.image.edit }">
 							<img src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png" class="imgArea" id="imgArea">
@@ -52,9 +51,9 @@
 						<c:if test="${ !empty loginMember.image.edit }">
 							<img src="${ pageContext.servletContext.contextPath }${ loginMember.image.root }/${ loginMember.image.edit }" class="imgArea" id="imgArea">
 						</c:if>
+							<br>
 		        			<input type="file" id="imgfile" name="thumbnail" accept="image/gif,image/jpeg,image/png">
 		          			<%-- <img src="${ pageContext.servletContext.contextPath }/resources/img/profile-example.png" class="imgArea" id="imgArea"> --%>
-		        		</div>
 		        		<br>
 		      		</div>
 		      		<div class="d-grid col-2 mx-auto">
