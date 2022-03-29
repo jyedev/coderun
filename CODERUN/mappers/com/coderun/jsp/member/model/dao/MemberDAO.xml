@@ -195,6 +195,14 @@
 		 WHERE A.MEMBER_ID = #{ id }
 		   AND A.MEMBER_STATUS = 'Y'
 	</select>
+	
+	<update id="updateFreepass">
+		UPDATE
+			   TB_MEMBER
+		   SET FREEPASS_YN = 'Y'
+		 WHERE MEMBER_ID = #{ id }
+		   AND MEMBER_STATUS = 'Y'
+	</update>
 
 
 </mapper>
