@@ -28,7 +28,7 @@
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <c:if test="${ empty sessionScope.loginMember }">
                     	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">커뮤니티</a></li>
                         <!-- 로그인 전에 멘토 되기 하면 로그인 하라고 -->
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/login">멘토 되기</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/regist">회원 가입</a></li>
@@ -36,14 +36,14 @@
                     	</c:if>
                         <c:if test="${ sessionScope.loginMember.type eq '회원' }">
                     	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/apply1">멘토 되기</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
                     	</c:if>
                     	<c:if test="${ sessionScope.loginMember.type eq '멘토' }">
                     	<li class="nav-item"><a class="nav-link" href="/사용자/멘토 소개.html">멘토 소개</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">커뮤니티</a></li>
                         <li class="nav-item"><a class="nav-link" href="/사용자/멘토 되기(신청 1단계).html">멘토 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>

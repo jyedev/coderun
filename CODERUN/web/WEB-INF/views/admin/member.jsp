@@ -16,56 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="navbar-brand" href="${ pageContext.servletContext.contextPath }"><img src="${ pageContext.servletContext.contextPath }/resources/img/logo.png" alt="..." style="width: 190px; margin-left: 10px;"/></a>
-                            <br><br>
-                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/dashboard">
-                                대시보드
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/member/list">
-                                회원 정보 조회
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="/관리자/관리자 멘토 관리.html">
-                                멘토 관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/payment/list">
-                                결제 관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="/관리자/관리자 게시글 목록.html">
-                                게시판 관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/calculation/list">
-                                정산 관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="/관리자/관리자 신고 관리.html">
-                                신고 관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                              <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                              <strong>관리자</strong>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <!-- 로그아웃 클릭 시 메인페이지 이동 + 로그아웃 상태 변경.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                              <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/member/logout">Sign out</a></li>
-                            </ul>
-                          </div>
-                    </div>
-                </nav>
-            </div>
+			<jsp:include page="../common/sidebar.jsp"/>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -97,7 +48,7 @@
                                     <tr>
                                         <td id="type">${ adminMember.type }</td>
                                         <td id="id">${ adminMember.id }</td>
-                                        <td><a  href="${ pageContext.servletContext.contextPath }/admin/memberdetail?id=${ adminMember.id }">자세히보기</a></td>
+                                        <td><a href="${ pageContext.servletContext.contextPath }/admin/memberdetail?id=${ adminMember.id }">자세히보기</a></td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>

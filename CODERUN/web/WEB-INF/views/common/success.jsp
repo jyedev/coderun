@@ -18,6 +18,20 @@
 			case "updateMember" : 
 				successMessage = "회원 정보 수정에 성공하셨습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/member/modify";
+				break;
+			case "insertBoard" : 
+				successMessage = "게시글이 등록되었습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/board/list";
+				break;
+			case "updateBoard" : 
+				successMessage = "게시글 수정에 성공하셨습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/board/view?no=${ no }";
+				break;
+			case "deleteBoard" : 
+				successMessage = "게시글 삭제에 성공하셨습니다!";
+				movePath = "${ pageContext.servletContext.contextPath }/board/list";
+				break;
+
 			}
 			
 			alert(successMessage);

@@ -7,7 +7,7 @@
 		<id property="reqNo" column="REQ_NO"/>
 		<result property="approveStatus" column="REQ_APROV_STATUS"/>
 		<result property="reqDate" column="REQ_DATE"/>
-		<result property="" column="REQ_MEMBER_ID"/>
+		<result property="memberId" column="REQ_MEMBER_ID"/>
 		
 		<association property="member" resultMap="memberResultMap"/>
 	</resultMap>
@@ -38,9 +38,44 @@
 		  )
 	</insert>
 
+	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+		SELECT
+			   COUNT(*)
+		  FROM TB_REQUEST
+		<where>
+			<if test="searchCondition != null">
+			REQ_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+			</if>
+		</where>
+	</select>
 
-
-
+	<select id="selectMentorList" resultMap="requestResultMap">
+		SELECT
+			   A.RNUM
+			 , A.REQ_NO
+			 , A.REQ_APROV_STATUS
+			 , A.REQ_DATE
+			 , A.REQ_MEMBER_ID
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.REQ_NO
+		  			 , B.REQ_APROV_STATUS
+		  			 , B.REQ_DATE
+		  			 , B.REQ_MEMBER_ID
+		  		  FROM (SELECT C.REQ_NO
+		  		  			 , C.REQ_APROV_STATUS
+		  		  			 , C.REQ_DATE
+		  		  			 , C.REQ_MEMBER_ID
+		  		  		  FROM TB_REQUEST C
+		 <if test="searchCondition != null">
+		 WHERE REQ_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 </if>
+		 )B
+		 <![CDATA[
+		 WHERE ROWNUM <= #{ endRow }
+		 ]]>
+		 ) A
+		 WHERE A.RNUM >= #{ startRow }
+	</select>
 
 
 

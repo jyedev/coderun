@@ -20,43 +20,38 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <form action="${ pageContext.servletContext.contextPath }/admin/payment/list" method="GET">
+                        <form action="${ pageContext.servletContext.contextPath }/admin/mentor/list" method="GET">
                             <div class="input-group mb-4 border rounded-pill p-1">
                                 <div class="input-group-prepend border-0">
-                                <!-- button type=button->submit -->
-                                <%-- <select id="Condition" name="searchCondition">
-                                	<option value="id" ${ param.searchCondition == 'id' ? "selected" : "" }>아이디</option>
-                                </select> --%>
-                                <button id="button-addon4" type="submit" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
-                                </div> 
-                               <input type="search" placeholder="검색" aria-describedby="button-addon4" class="form-control bg-none border-0" style="margin-right: 20px;"
-                                name="searchValue"	value="${ param.searchValue }">
-                            </div> 
+                                    <button id="button-addon4" type="button" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
+                                </div>
+                                <input type="search" placeholder="검색" aria-describedby="button-addon4" class="form-control bg-none border-0" style="margin-right: 20px;"
+                                name="searchValue" value="${ param.searchValue }">
+                            </div>
                         </form>
                         <div class="table-responsive">
                             <table class="table table-striped table-sm">
                                 <thead>
                                 <tr>
+                                    <th scope="col">요청 번호</th>
                                     <th scope="col">아이디</th>
-                                    <th scope="col">결제일</th>
-                                    <th scope="col">만료일</th>
-                                    <th scope="col">금액</th>
+                                    <th scope="col">요청처리 상태</th>
+                                    <th scope="col">상세 조회</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!-- c:forEach 추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                                    <c:forEach var="adminPayment" items="${ paymentList }">
-                                    <tr>
-                                        <td id="id">${ adminPayment.memberId }</td>
-                                        <td id="date">${ adminPayment.date }</td>
-                                        <td id="end">${ adminPayment.end }</td>
-                                        <td id="price">${ adminPayment.price }</td>
-                                    </tr>
-                                    </c:forEach>
+                                   	<c:forEach var="adminMentor" items="${ mentorList }">
+                                    	<tr>
+	                                    	<td id="reqNo">${ adminMentor.reqNo }</td>
+	                                        <td id="memberId">${ adminMentor.memberId }</td>
+	                                        <td id="approveStatus">${ adminMentor.approveStatus }</td>
+	                                        <td><a href="${ pageContext.servletContext.contextPath }/admin/mentordetail?memberId=${ adminMentor.memberId }">자세히 보기</a></td>
+                                    	</tr>
+                                   	</c:forEach>
                                 </tbody>
                             </table>
                             <br>
-							<jsp:include page="../common/paging.jsp"/>
+                            <jsp:include page="../common/paging.jsp"/>
                         </div>
                     </div>
                 </main>

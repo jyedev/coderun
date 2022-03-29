@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardDAO">
+	<resultMap type="com.coderun.jsp.board.model.dto.BoardDTO" id="generalBoardResultMap">
+		<id property="no" column="BD_NO"/>
+		<result property="title" column="BD_TITLE"/>
+		<result property="content" column="BD_CONTENT"/>
+		<result property="writerId" column="BD_WRITER_ID"/>
+		<result property="date" column="BD_DATE"/>
+		<result property="update" column="BD_UPDATE"/>
+		<result property="delete" column="BD_DELETE"/>
+		
+		<association property="writer" resultMap="memberResultMap"/>
+	</resultMap>
+		
+	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
+		<id property="id" column="MEMBER_ID"/>
+		<result property="pwd" column="MEMBER_PWD"/>
+		<result property="name" column="MEMBER_NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="gender" column="GENDER"/>
+		<result property="type" column="MEMBER_TYPE"/>
+		<result property="freepassYn" column="FREEPASS_YN"/>
+		<result property="status" column="MEMBER_STATUS"/>
+	</resultMap>
+	
+	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+          FROM TB_BOARD
+    	<where>
+			<if test="searchCondition == 'title'">
+	           BD_TITLE LIKE '%' || #{ searchValue } || '%'
+			</if>
+			<if test="searchCondition == 'content'">
+	           BD_CONTENT LIKE '%' || #{ searchValue } || '%'
+			</if>
+	       AND BD_DELETE = 'N'
+    	</where>
+	</select>
+	<select id="selectBoardList" resultMap="generalBoardResultMap">
+    SELECT /* com.greedy.jsp.board.model.dao.BoardDAO#selectBoardList() */
+               A.RNUM
+ 	 		 , A.BD_NO
+ 	 		 , A.BD_TITLE 
+ 	 		 , A.BD_CONTENT
+ 	 		 , A.BD_WRITER_ID
+ 	 		 , A.BD_DATE
+ 	 		 , A.BD_UPDATE
+ 	 		 , A.BD_DELETE
+          FROM (SELECT ROWNUM RNUM
+                     , B.BD_NO
+                     , B.BD_TITLE
+                     , B.BD_CONTENT
+                     , B.BD_WRITER_ID
+                     , B.BD_DATE
+                     , B.BD_UPDATE
+                     , B.BD_DELETE
+                  FROM (SELECT C.BD_NO
+                  			 , C.BD_TITLE
+                  			 , C.BD_CONTENT
+                  			 , C.BD_WRITER_ID
+                  			 , C.BD_DATE
+                  			 , C.BD_UPDATE
+                  			 , C.BD_DELETE
+                          FROM TB_BOARD C
+    					<where>
+							<if test="searchCondition == 'title'">
+	           				   C.BD_TITLE LIKE '%' || #{ searchValue } || '%' 	
+							</if>
+							<if test="searchCondition == 'content'">
+	           				   C.BD_CONTENT LIKE '%' || #{ searchValue } || '%' 	
+							</if>
+	       				   AND C.BD_DELETE = 'N'
+    					</where>
+                         ORDER BY C.BD_NO DESC
+                        ) B
+                  <![CDATA[
+                  WHERE ROWNUM <= #{ endRow }
+                  ]]>
+               ) A
+		 JOIN TB_MEMBER D ON(A.BD_WRITER_ID = D.MEMBER_ID)
+         WHERE A.RNUM >= #{ startRow }     
+         ORDER BY A.RNUM 
+	</select>
+	<insert id="insertBoard">
+        INSERT
+          INTO TB_BOARD 
+        (BD_NO, BD_TITLE, BD_CONTENT, BD_WRITER_ID)
+        VALUES
+        ( SEQ_BD_NO.NEXTVAL, #{ title }, #{ content }, #{ writerId })
+	</insert>
+	
+	
+	<select id="selectBoardView" resultMap="generalBoardResultMap">
+        SELECT
+               A.BD_NO
+             , A.BD_TITLE
+             , A.BD_CONTENT
+             , A.BD_WRITER_ID
+             , A.BD_DATE
+             , A.BD_UPDATE
+          FROM TB_BOARD A
+         WHERE A.BD_DELETE = 'N'
+           AND A.BD_NO = #{ no }
+	</select>
+	
+	<update id="updateBoard">
+	UPDATE 
+	       TB_BOARD
+	   SET BD_TITLE = #{ title }
+	     , BD_CONTENT = #{ content }
+	 WHERE BD_NO = #{ no }
+	</update>
+	
+	<update id="deleteBoard">
+		UPDATE
+		       TB_BOARD
+		   SET BD_DELETE = 'Y'
+		 WHERE BD_NO = #{ no }
+	</update>
+</mapper>
