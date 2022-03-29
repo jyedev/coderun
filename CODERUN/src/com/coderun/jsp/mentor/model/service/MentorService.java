@@ -49,15 +49,17 @@ public class MentorService {
 		
 	}
 
-	/* 멘토 상세보기용 메소드 */
-	public MentorDTO selectMentorDetail(String memberId) {
+	/* 멘토 상세페이지 메소드 */
+/*	public MentorDTO selectMentorDetail(String memberId) {
 		
 		SqlSession session = getSqlSession();
 		MentorDTO mentorDetail = null;
 		
-		int result = mentorDAO.incrementMentor(session, memberId);
 		
+		int result = mentorDAO.incrementMentorCount(session, memberId);
+
 		if(result > 0) {
+			//쿼리문에서 JOIN해서 커리큘럼 테이블, 멘토 테이블 다 가지고 와서 담기
 			mentorDetail = mentorDAO.selectMentorDetail(session, memberId);
 			
 			if(mentorDetail != null) {
@@ -72,12 +74,21 @@ public class MentorService {
 		session.close();
 		
 		return mentorDetail;
-		
+} */
 
+	/* 멘토 상세페이지 조회 메소드 */
+	public MentorDTO selectMentorDetail(String memberId) {
+		
+		SqlSession session = getSqlSession();
+		
+		MentorDTO mentorDetail = mentorDAO.selectMentorDetail(session, memberId);
+		
+		session.close();
+		
+		return mentorDetail;
+	}
 
 	
-}
-
 	/* 멘토 정보 수정용 메소드 */
 	public int updateMentor(MentorDTO mentorInfo) {
 		
@@ -104,6 +115,10 @@ public class MentorService {
 		
 		return result;
 	}
+
+
+
+
 
 		
 	}

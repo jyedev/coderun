@@ -1,6 +1,5 @@
 package com.coderun.jsp.mentor.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,20 +29,10 @@ public class MentorDAO {
 		
 	}
 	
-	
-
-	/* 멘토 상세보기용 메소드 */
+	/* 멘토 상세페이지 메소드 */
 	public MentorDTO selectMentorDetail(SqlSession session, String memberId) {
-		
-		return session.selectOne("mentorDAO.selectMentorDetail", memberId);
-	}
-
-
-
-	public int incrementMentor(SqlSession session, String memberId) {
 		return session.selectOne("MentorDAO.selectMentorDetail", memberId);
-	} 
-  
+	}
 
 
 	/* 멘토 정보 수정용 메소드 */
@@ -53,10 +42,26 @@ public class MentorDAO {
 	}
 
 
-
 	public int insertCurriculum(SqlSession session, CurriculumDTO curriculum) {
 		return session.insert("MentorDAO.insertCurriculum", curriculum);
 	}
+
+
+
+	public List<CurriculumDTO> selectCurriDetail(SqlSession session, String memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+
+
+
+
+	
 
 
 
