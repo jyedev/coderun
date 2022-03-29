@@ -21,7 +21,7 @@
 		<result property="origin" column="IMG_ORIGIN"/>
 		<result property="edit" column="IMG_EDIT"/>
 		<result property="root" column="IMG_ROOT"/>
-		<result property="memberId" column="IMT_MEMBER_ID"/>
+		<result property="memberId" column="IMG_MEMBER_ID"/>
 	</resultMap>
 	
 	<select id="selectEncryptedPwd" resultType="java.lang.String">

@@ -71,18 +71,12 @@
 							href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.loginMember.type eq '멘토' }">
-						<li class="nav-item"><a class="nav-link"
-							href="/사용자/멘토 소개.html">멘토 소개</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/사용자/멘토 되기(신청 1단계).html">멘토 정보</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/member/modify">회원
-								정보</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
-					</c:if>
+                       <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/list">멘토 소개</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/information">멘토 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
+                    </c:if>
 				</ul>
 			</div>
 		</div>
