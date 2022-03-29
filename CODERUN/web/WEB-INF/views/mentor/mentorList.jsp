@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -59,9 +52,10 @@
                  </c:forEach>
               </div>
        		<br><br>
-        <div class="d-grid col-2 mx-auto">
-           <button class="btn btn-primary" type="button" onclick="location.href='프리패스 구매.html'">프리패스 구매하기</button>
-        </div>   
+	        <div class="d-grid col-2 mx-auto">
+	           <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/mentor/pay'">프리패스 구매하기</button>
+	        </div>
+        </div>  
     </section>
     <footer class="footer py-4 bg-light">
         <div class="container">
@@ -71,14 +65,5 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    
- 
-</body>
-</html>
-
-
-
-
 </body>
 </html>
