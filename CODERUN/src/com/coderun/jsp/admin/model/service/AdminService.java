@@ -71,6 +71,26 @@ public class AdminService {
 		return returnMap;
 	}
 
+
+	public MemberDTO selectOneMember(String id) {
+
+		SqlSession session = getSqlSession();
+		
+		MemberDTO memberDetail = null;
+		
+		memberDetail = memberDAO.selectOneMember(session, id);
+
+		if(memberDetail != null) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		
+		session.close();
+		
+		return memberDetail;
+    
 	public Map<String, Object> selectPaymentList(int pageNo, Map<String, String> searchMap) {
 		
 		SqlSession session = getSqlSession();

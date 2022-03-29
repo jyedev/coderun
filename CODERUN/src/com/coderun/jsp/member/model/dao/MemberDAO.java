@@ -64,4 +64,13 @@ public class MemberDAO {
 		return session.selectList("MemberDAO.selectMemberList", selectCriteria);
 	}
 
+	
+
+	public MemberDTO selectOneMember(SqlSession session, String id) {
+
+		return session.selectOne("MemberDAO.selectOneMember", id);
+	}
+
+	
+
 }
