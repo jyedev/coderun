@@ -24,6 +24,8 @@ public class MemberModifyServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		java.sql.Date birthday = java.sql.Date.valueOf(request.getParameter("birthday"));
 		String gender = request.getParameter("gender");
+		String freepassYn = request.getParameter("freepassYn");
+		
 		
 		MemberDTO requestMember = new MemberDTO();
 		// id 설정 안 들어가 있었음
@@ -32,13 +34,13 @@ public class MemberModifyServlet extends HttpServlet {
 		requestMember.setEmail(email);
 		requestMember.setBirthday(birthday);
 		requestMember.setGender(gender);
+		requestMember.setFreepassYn(freepassYn);
 		
 		System.out.println("memberController requestMember : " + requestMember);
 		
 		MemberDTO changedMemberInfo = new MemberService().modifyMember(requestMember);
 		
 		System.out.println("memberController changedMemberInfo : " + changedMemberInfo);
-		
 		
 		if(changedMemberInfo != null) {
 			request.getSession().setAttribute("loginMember", changedMemberInfo);

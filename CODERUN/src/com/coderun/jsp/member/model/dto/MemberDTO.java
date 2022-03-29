@@ -1,6 +1,7 @@
 package com.coderun.jsp.member.model.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class MemberDTO {
 
@@ -12,11 +13,13 @@ public class MemberDTO {
 	private String gender;
 	private String type;
 	private String freepassYn;
+	private String status;
+  private ImageDTO image;
 	
 	public MemberDTO() {}
 
 	public MemberDTO(String id, String pwd, String name, String email, Date birthday, String gender, String type,
-			String freepassYn) {
+			String freepassYn, String status, ImageDTO image) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -26,8 +29,10 @@ public class MemberDTO {
 		this.gender = gender;
 		this.type = type;
 		this.freepassYn = freepassYn;
+		this.status = status;
+		this.image = image;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -88,14 +93,35 @@ public class MemberDTO {
 		return freepassYn;
 	}
 
+
 	public void setFreepassYn(String freepassYn) {
 		this.freepassYn = freepassYn;
 	}
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public ImageDTO getImage() {
+		return image;
+	}
+
+	public void setImage(ImageDTO image) {
+		this.image = image;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", birthday=" + birthday
-				+ ", gender=" + gender + ", type=" + type + ", freepassYn=" + freepassYn + "]";
+				+ ", gender=" + gender + ", type=" + type + ", freepassYn=" + freepassYn + ", status=" + status
+				+ ", image=" + image + "]";
 	}
 
 }
