@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>CODERUN</title>
 <link rel="icon" type="image/x-icon"
-	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.png" />
+   href="${ pageContext.servletContext.contextPath }/resources/img/favicon.png" />
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-	crossorigin="anonymous"></script>
+   crossorigin="anonymous"></script>
 <link
-	href="${ pageContext.servletContext.contextPath }/resources/css/main-style.css"
-	rel="stylesheet">
+   href="${ pageContext.servletContext.contextPath }/resources/css/main-style.css"
+   rel="stylesheet">
 </head>
 <body id="page-top">
 <script type="text/javascript">
-	(function() {
-		const result = "${ requestScope.message }";
-		if(result == "fail")
-		alert("회원 탈퇴에 실패했습니다.");
-	})();
+   (function() {
+      const result = "${ requestScope.message }";
+      if(result == "fail")
+      alert("회원 탈퇴에 실패했습니다.");
+   })();
 </script>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -76,7 +76,7 @@
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/information">멘토 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
-                    </c:if>
+           </c:if>
 				</ul>
 			</div>
 		</div>
