@@ -13,16 +13,16 @@
     <link href="${ pageContext.servletContext.contextPath }/resources/css/style.css" rel="stylesheet" />
 </head>
 <body>
-<script>
-	(function(){
-		const payResult = "${ requestScope.payResult }";
-		if(payResult == "success"){
-		alert('결제되었습니다.');
-		} else if(payResult == "fail"){
-		alert('결제 정보 저장에 실패했습니다.');
-		}
-	})();
-</script>
+	<script>
+		(function(){
+			const payResult = "${ requestScope.payResult }";
+			if(payResult == "success"){
+			alert('결제되었습니다.');
+			} else if(payResult == "fail"){
+			alert('결제 정보 저장에 실패했습니다.');
+			}
+		})();
+	</script>
     <jsp:include page="../common/menubar.jsp"/>
     <section class="page-section bg" id="pay-lecture" style="width: 1000px; margin: 0 auto;">
         <div class="container">
@@ -66,7 +66,8 @@
     			amount: 100000
     		}, function (rsp) {
     			if(rsp.success) {
-    				location.href = "${ pageContext.servletContext.contextPath }/mentor/paySuccess";
+    				alert("결제되었습니다.");
+    				// location.href = "${ pageContext.servletContext.contextPath }";
     			} else {
     				alert("결제 실패했습니다.");
     			}

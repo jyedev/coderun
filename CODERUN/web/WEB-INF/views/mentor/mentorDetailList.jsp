@@ -26,10 +26,10 @@
         <div class="container">
             <br><br>
             <c:if test="${ empty mentor.member.image.edit }">
-            <img src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png" class="rounded mx-auto d-block" alt="...">
+            <img src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png" class="rounded mx-auto d-block" alt="..." style="width: 150px; height: 150px">
             </c:if>
             <c:if test="${ !empty mentor.member.image.edit }">
-            <img src="${ pageContext.servletContext.contextPath }${ mentor.member.image.root }/${ mentor.member.image.edit }" class="rounded mx-auto d-block" alt="...">
+            <img src="${ pageContext.servletContext.contextPath }${ mentor.member.image.root }/${ mentor.member.image.edit }" class="rounded mx-auto d-block" alt="..." style="width: 150px; height: 150px">
             </c:if>
             <br><br>
         	
@@ -40,7 +40,7 @@
 
                 회사를 다니면서 습득한 디자인 툴 사용법과 포트폴리오를 통해<br>
                 여러분들의 디자인 스킬을 한층 더 업그레이드 시켜드립니다. <br><br><br> -->
-                ${ mentor.introduce}
+                ${ mentor.introduce }
             </div>
             <div class="mb-3 row">
                 <table class="table" id="teacher-cur">
@@ -80,10 +80,5 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-
 </body>
 </html>
