@@ -25,11 +25,11 @@
     <section class="page-section bg" id="teacher-info" style="width: 1000px; margin: 0 auto;">
         <div class="container">
             <br><br>
-            <c:if test="${ empty mentor.image.edit }">
+            <c:if test="${ empty mentor.member.image.edit }">
             <img src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png" class="rounded mx-auto d-block" alt="...">
             </c:if>
-            <c:if test="${ !empty mentor.image.edit }">
-            <img src="${ pageContext.servletContext.contextPath }${ mentor.image.root }/${ mentor.image.edit }" class="rounded mx-auto d-block" alt="...">
+            <c:if test="${ !empty mentor.member.image.edit }">
+            <img src="${ pageContext.servletContext.contextPath }${ mentor.member.image.root }/${ mentor.member.image.edit }" class="rounded mx-auto d-block" alt="...">
             </c:if>
             <br><br>
         	

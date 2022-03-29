@@ -38,11 +38,11 @@
                 <div class="col-md-6">
 					<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="width: 500px; margin: 0 auto;">
                         <div class="col-md-3 p-4 d-flex flex-column position-static">
-                        <c:if test="${ empty mentor.image.edit }">
+                        <c:if test="${ empty mentor.member.image.edit }">
                             <img src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png" style="width:100px; height:100px; margin: auto;"alt="...">
                         </c:if>
                         <c:if test="${ !empty mentor.member.image.edit }">
-                        	<img src="${ pageContext.servletContext.contextPath }${ mentor.image.root }/${ mentor.image.edit }" style="width:100px; height:100px; margin: auto;"alt="...">
+                        	<img src="${ pageContext.servletContext.contextPath }${ mentor.member.image.root }/${ mentor.member.image.edit }" style="width:100px; height:100px; margin: auto;"alt="...">
                         </c:if>
                         </div>
                         <div class="col-md-9 p-4 d-flex flex-column position-static">
