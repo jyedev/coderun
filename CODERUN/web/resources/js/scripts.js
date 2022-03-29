@@ -76,13 +76,13 @@ function saveValue(intId, strValue) {
 function createInput(id, value) {
     let str = `<div class="mb-3">
         <label for="test ${id}" class="form-label">커리큘럼명</label>
-        <input type='text' class='form-control' id='test ${id}' name='test ${id}' onChange='javascript:saveValue(${id}, this.value)' value='${value}' placeholder="커리큘럼명">
+        <input type='text' class='form-control' id='test ${id}' name='curriculum' onChange='javascript:saveValue(${id}, this.value)' value='${value}' placeholder="커리큘럼명">
         </div>
         <div class="mb-3">
         <label for="test ${id}" class="form-label">영상 링크</label>
-        <input type='text' class='form-control' id='test ${id}' name='test ${id}' onChange='javascript:saveValue(${id}, this.value)' value='${value}' placeholder="영상 링크">
+        <input type='text' class='form-control' id='test ${id}' name='video' onChange='javascript:saveValue(${id}, this.value)' value='${value}' placeholder="영상 링크">
         </div>`;
-	
+   
     return str;
 }
     
@@ -109,6 +109,9 @@ document.getElementById('imgfile').addEventListener('change', function () {
     }
   });
 
+
+
+//2. 비밀번호 유효성 검사
 function checkExistData(value, dataName) {
 	if (value == "") {
 		alert(dataName + " 입력해주세요!");

@@ -21,8 +21,9 @@
 		<result property="origin" column="IMG_ORIGIN"/>
 		<result property="edit" column="IMG_EDIT"/>
 		<result property="root" column="IMG_ROOT"/>
-		<result property="memberId" column="IMT_MEMBER_ID"/>
+		<result property="memberId" column="IMG_MEMBER_ID"/>
 	</resultMap>
+	
 	
 	<select id="selectEncryptedPwd" resultType="java.lang.String">
 		SELECT MEMBER_PWD
@@ -176,5 +177,24 @@
 		WHERE MEMBER_ID = #{ id }
 		AND MEMBER_STATUS = 'Y'
 	</update>
+
+	<select id="selectOneMember" resultMap="memberResultMap">
+		SELECT
+			   B.IMG_ORIGIN
+             , B.IMG_EDIT
+             , B.IMG_ROOT
+             , A.MEMBER_ID
+             , A.FREEPASS_YN
+             , A.MEMBER_NAME
+             , A.EMAIL
+             , A.BIRTHDAY
+             , A.GENDER
+             , A.MEMBER_TYPE
+          FROM TB_MEMBER A
+     LEFT JOIN TB_IMAGE B ON (A.MEMBER_ID = B.IMG_MEMBER_ID)
+		 WHERE A.MEMBER_ID = #{ id }
+		   AND A.MEMBER_STATUS = 'Y'
+	</select>
+
 
 </mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PaymentDAO">
+	<resultMap type="com.coderun.jsp.admin.model.dto.PaymentDTO" id="paymentResultMap">
+		<id property="no" column="PAY_NO"/>
+		<result property="date" column="PAY_DATE"/>
+		<result property="end" column="PAY_END"/>
+		<result property="memberId" column="PAY_MEMBER_ID"/>
+		<result property="price" column="PAY_PRICE"/>
+	</resultMap>
+	
+	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+		SELECT
+			   COUNT(*)
+		  FROM TB_PAYMENT
+		 <where>
+		 	<if test="searchCondition != null">
+		 	PAY_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 	</if> 
+		 </where>
+	</select>
+	
+	<select id="selectPaymentList" resultMap="paymentResultMap">
+		SELECT
+			   A.RNUM
+			 , A.PAY_MEMBER_ID
+			 , A.PAY_DATE
+			 , A.PAY_END
+			 , A.PAY_PRICE
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.PAY_MEMBER_ID
+		  			 , B.PAY_DATE
+		  			 , B.PAY_END
+		  			 , B.PAY_PRICE
+		  		  FROM (SELECT C.PAY_MEMBER_ID
+		  		  			 , C.PAY_DATE
+		  		  			 , C.PAY_END
+		  		  			 , C.PAY_PRICE
+		  		  		  FROM TB_PAYMENT C
+		 <if test="searchCondition != null">
+		 WHERE PAY_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 </if>
+		 ) B
+		 <![CDATA[
+		 WHERE ROWNUM <= #{ endRow }
+		 ]]>
+		 ) A
+		 WHERE A.RNUM >= #{ startRow }
+	</select>
+</mapper>

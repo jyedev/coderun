@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>CODERUN</title>
 <link rel="icon" type="image/x-icon"
-	href="${ pageContext.servletContext.contextPath }/resources/img/favicon.png" />
+   href="${ pageContext.servletContext.contextPath }/resources/img/favicon.png" />
 <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-	crossorigin="anonymous"></script>
+   crossorigin="anonymous"></script>
 <link
-	href="${ pageContext.servletContext.contextPath }/resources/css/main-style.css"
-	rel="stylesheet">
+   href="${ pageContext.servletContext.contextPath }/resources/css/main-style.css"
+   rel="stylesheet">
 </head>
 <body id="page-top">
 <script type="text/javascript">
-	(function() {
-		const result = "${ requestScope.message }";
-		if(result == "fail")
-		alert("회원 탈퇴에 실패했습니다.");
-	})();
+   (function() {
+      const result = "${ requestScope.message }";
+      if(result == "fail")
+      alert("회원 탈퇴에 실패했습니다.");
+   })();
 </script>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -71,18 +71,12 @@
 							href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.loginMember.type eq '멘토' }">
-						<li class="nav-item"><a class="nav-link"
-							href="/사용자/멘토 소개.html">멘토 소개</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="/사용자/멘토 되기(신청 1단계).html">멘토 정보</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/member/modify">회원
-								정보</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
-					</c:if>
+                       <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/list">멘토 소개</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/커뮤니티/게시글 목록.html">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/mentor/information">멘토 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
+           </c:if>
 				</ul>
 			</div>
 		</div>
@@ -197,7 +191,7 @@
 									alt="..." />
 								<p>코드런의 유능한 멘토진들이 회원님을 기다리고 있습니다.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
+									onclick="location.href='/사용자/멘토 소개.html'">바로가기</button>
 							</div>
 						</div>
 					</div>
@@ -226,7 +220,7 @@
 									alt="..." />
 								<p>개발자들의 놀이터에서 자유롭게 대화해 보세요.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
+									onclick="location.href='/커뮤니티/게시글 목록.html'">바로가기</button>
 							</div>
 						</div>
 					</div>
@@ -255,7 +249,7 @@
 									alt="..." />
 								<p>나의 지식을 나눠 사람들에게 배움의 기회를 주고, 의미 있는 대가를 가져가세요.</p>
 								<button class="btn btn-primary btn-xl" type="button"
-									onclick="location.href='${ pageContext.servletContext.contextPath }'">바로가기</button>
+									onclick="location.href='/사용자/멘토 되기(신청 1단계).html'">바로가기</button>
 							</div>
 						</div>
 					</div>
