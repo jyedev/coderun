@@ -1,12 +1,14 @@
 package com.coderun.jsp.mentor.model.service;
 
+import static com.coderun.jsp.common.mybatis.Template.getSqlSession;
+
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
-
 import com.coderun.jsp.mentor.model.dao.MentorDAO;
+import com.coderun.jsp.mentor.model.dto.CurriculumDTO;
 import com.coderun.jsp.mentor.model.dto.MentorDTO;
-
-import static com.coderun.jsp.common.mybatis.Template.getSqlSession;
 
 public class MentorService {
 	
@@ -33,5 +35,75 @@ public class MentorService {
 		
 		return result;
 	}
+
+	/* 멘토 목록 전체 조회용 메소드 */
+	public List<MentorDTO> selectAllMentorList() {
+		
+		SqlSession session = getSqlSession();
+		
+		List<MentorDTO> mentorList = mentorDAO.selectAllMentorList(session);
+	
+		session.close();
+		
+		return mentorList;
+		
+	}
+
+	/* 멘토 상세보기용 메소드 */
+	public MentorDTO selectMentorDetail(String memberId) {
+		
+		SqlSession session = getSqlSession();
+		MentorDTO mentorDetail = null;
+		
+		int result = mentorDAO.incrementMentor(session, memberId);
+		
+		if(result > 0) {
+			mentorDetail = mentorDAO.selectMentorDetail(session, memberId);
+			
+			if(mentorDetail != null) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+		
+		return mentorDetail;
+		
+
+
 	
 }
+
+	/* 멘토 정보 수정용 메소드 */
+	public int updateMentor(MentorDTO mentorInfo) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = 0;
+		
+		int result1 = mentorDAO.updateMentor(session, mentorInfo);
+		
+		int result2 = 0;
+		
+		for(CurriculumDTO curriculum : mentorInfo.getCurriculumName()) {
+			result2 += mentorDAO.insertCurriculum(session, curriculum);
+		}
+		
+		if(result1 > 0 && result2 == mentorInfo.getCurriculumName().size()) {
+			session.commit();
+			result = 1;
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+		
+	}
