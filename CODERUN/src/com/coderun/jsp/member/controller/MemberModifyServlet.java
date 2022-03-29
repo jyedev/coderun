@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.coderun.jsp.member.model.dto.ImageDTO;
 import com.coderun.jsp.member.model.dto.MemberDTO;
 import com.coderun.jsp.member.model.service.MemberService;
 
@@ -26,7 +27,6 @@ public class MemberModifyServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String freepassYn = request.getParameter("freepassYn");
 		
-		
 		MemberDTO requestMember = new MemberDTO();
 		// id 설정 안 들어가 있었음
 		requestMember.setId(id);
@@ -43,6 +43,7 @@ public class MemberModifyServlet extends HttpServlet {
 		System.out.println("memberController changedMemberInfo : " + changedMemberInfo);
 		
 		if(changedMemberInfo != null) {
+			changedMemberInfo.setImage(((MemberDTO)request.getSession().getAttribute("loginMember")).getImage());
 			request.getSession().setAttribute("loginMember", changedMemberInfo);
 			request.setAttribute("modifyResult", "success");
 			request.getRequestDispatcher("/WEB-INF/views/member/modify.jsp").forward(request, response);
