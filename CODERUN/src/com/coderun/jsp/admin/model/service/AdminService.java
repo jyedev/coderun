@@ -90,6 +90,7 @@ public class AdminService {
 		session.close();
 		
 		return memberDetail;
+	}
     
 	public Map<String, Object> selectPaymentList(int pageNo, Map<String, String> searchMap) {
 		
