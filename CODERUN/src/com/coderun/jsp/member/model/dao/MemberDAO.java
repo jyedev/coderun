@@ -71,6 +71,10 @@ public class MemberDAO {
 		return session.selectOne("MemberDAO.selectOneMember", id);
 	}
 
+	public int updateFreepass(SqlSession session, String memberId) {
+		return session.update("MemberDAO.updateFreepass", memberId);
+	}
+
 	
 
 }

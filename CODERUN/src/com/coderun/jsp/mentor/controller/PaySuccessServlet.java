@@ -23,8 +23,9 @@ public class PaySuccessServlet extends HttpServlet {
 		payment.setMemberId(memberId);
 		
 		int result = new PaymentService().registPayment(payment);
+		int result2 = new PaymentService().updateFreepass(memberId);
 		
-		if(result > 0) {
+		if(result > 0 && result2 > 0) {
 			request.setAttribute("payResult", "success");
 		} else {
 			request.setAttribute("payResult", "fail");
