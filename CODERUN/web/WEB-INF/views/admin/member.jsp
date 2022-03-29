@@ -89,7 +89,7 @@
                                     <tr>
                                         <td id="type">${ adminMember.type }</td>
                                         <td id="id">${ adminMember.id }</td>
-                                        <td><a type="button" data-bs-toggle="modal" href="#" data-bs-target="#user-detail" class="user-detail">자세히보기</a></td>
+                                        <td><a  href="${ pageContext.servletContext.contextPath }/admin/memberdetail?id=${ adminMember.id }">자세히보기</a></td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>
@@ -164,6 +164,12 @@
                 </div>
             </div>
         </div>
+        <script>
+        	function detailView(id){
+        		location.href= '${ pageContext.servletContext.contextPath }/admin/memberdetail?id=' +id;
+        	}
+        </script>
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </body>
 </html>
