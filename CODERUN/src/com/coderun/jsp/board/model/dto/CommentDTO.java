@@ -5,74 +5,73 @@ import java.sql.Date;
 
 public class CommentDTO {
 	
-	private int cmtNo;
-	private String cmtWriter;
-	private String cmtContent;
-	private Date cmtDate;
-	private Date cmtUpdate;
-	private String cmtDelete;
+	private int no;
+	private String writer;
+	private String content;
+	private Date date;
+	private Date update;
+	private String delete;
 	private int bdNo;
 	
 	public CommentDTO() {}
 
-	public CommentDTO(int cmtNo, String cmtWriter, String cmtContent, Date cmtDate, Date cmtUpdate, String cmtDelete,
-			int bdNo) {
+	public CommentDTO(int no, String writer, String content, Date date, Date update, String delete, int bdNo) {
 		super();
-		this.cmtNo = cmtNo;
-		this.cmtWriter = cmtWriter;
-		this.cmtContent = cmtContent;
-		this.cmtDate = cmtDate;
-		this.cmtUpdate = cmtUpdate;
-		this.cmtDelete = cmtDelete;
+		this.no = no;
+		this.writer = writer;
+		this.content = content;
+		this.date = date;
+		this.update = update;
+		this.delete = delete;
 		this.bdNo = bdNo;
 	}
 
-	public int getCmtNo() {
-		return cmtNo;
+	public int getNo() {
+		return no;
 	}
 
-	public void setCmtNo(int cmtNo) {
-		this.cmtNo = cmtNo;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
-	public String getCmtWriter() {
-		return cmtWriter;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setCmtWriter(String cmtWriter) {
-		this.cmtWriter = cmtWriter;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
-	public String getCmtContent() {
-		return cmtContent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setCmtContent(String cmtContent) {
-		this.cmtContent = cmtContent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Date getCmtDate() {
-		return cmtDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCmtDate(Date cmtDate) {
-		this.cmtDate = cmtDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public Date getCmtUpdate() {
-		return cmtUpdate;
+	public Date getUpdate() {
+		return update;
 	}
 
-	public void setCmtUpdate(Date cmtUpdate) {
-		this.cmtUpdate = cmtUpdate;
+	public void setUpdate(Date update) {
+		this.update = update;
 	}
 
-	public String getCmtDelete() {
-		return cmtDelete;
+	public String getDelete() {
+		return delete;
 	}
 
-	public void setCmtDelete(String cmtDelete) {
-		this.cmtDelete = cmtDelete;
+	public void setDelete(String delete) {
+		this.delete = delete;
 	}
 
 	public int getBdNo() {
@@ -85,12 +84,11 @@ public class CommentDTO {
 
 	@Override
 	public String toString() {
-		return "CommentDTO [cmtNo=" + cmtNo + ", cmtWriter=" + cmtWriter + ", cmtContent=" + cmtContent + ", cmtDate="
-				+ cmtDate + ", cmtUpdate=" + cmtUpdate + ", cmtDelete=" + cmtDelete + ", bdNo=" + bdNo + "]";
+		return "CommentDTO [no=" + no + ", writer=" + writer + ", content=" + content + ", date=" + date + ", update="
+				+ update + ", delete=" + delete + ", bdNo=" + bdNo + "]";
 	}
 
-	
-	
+
 	
 
 	

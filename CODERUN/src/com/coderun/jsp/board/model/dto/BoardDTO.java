@@ -1,8 +1,10 @@
 package com.coderun.jsp.board.model.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.coderun.jsp.member.model.dto.MemberDTO;
+import com.coderun.jsp.mentor.model.dto.CurriculumDTO;
 
 public class BoardDTO {
 	
@@ -14,11 +16,12 @@ public class BoardDTO {
 	private Date date;
 	private Date update;
 	private String delete;
+	private List<CommentDTO> commentList;
 	
 	public BoardDTO() {}
 
 	public BoardDTO(int no, String title, String writerId, MemberDTO writer, String content, Date date, Date update,
-			String delete) {
+			String delete, List<CommentDTO> commentList) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -28,6 +31,7 @@ public class BoardDTO {
 		this.date = date;
 		this.update = update;
 		this.delete = delete;
+		this.commentList = commentList;
 	}
 
 	public int getNo() {
@@ -94,10 +98,19 @@ public class BoardDTO {
 		this.delete = delete;
 	}
 
+	public List<CommentDTO> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<CommentDTO> commentList) {
+		this.commentList = commentList;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardDTO [no=" + no + ", title=" + title + ", writerId=" + writerId + ", writer=" + writer
-				+ ", content=" + content + ", date=" + date + ", update=" + update + ", delete=" + delete + "]";
+				+ ", content=" + content + ", date=" + date + ", update=" + update + ", delete=" + delete
+				+ ", commentList=" + commentList + "]";
 	}
 
 }

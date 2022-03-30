@@ -64,7 +64,7 @@
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed" href="/관리자/관리자 신고 관리.html"> 신고
+					</a> <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/report/list"> 신고
 						관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
