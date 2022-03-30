@@ -27,6 +27,7 @@
 		<mapper resource="com/coderun/jsp/admin/model/dao/CalculationDAO.xml"/>
 		<mapper resource="com/coderun/jsp/board/model/dao/BoardDAO.xml"/>
 		<mapper resource="com/coderun/jsp/admin/model/dao/RequestDAO.xml"/>
+		<mapper resource="com/coderun/jsp/board/model/dao/ReportDAO.xml"/>
 	</mappers>
 	
 	

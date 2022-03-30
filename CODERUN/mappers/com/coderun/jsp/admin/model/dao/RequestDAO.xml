@@ -89,5 +89,4 @@
 		 WHERE REQ_NO = ${ reqNo }
 	</update>
 
-
 </mapper>

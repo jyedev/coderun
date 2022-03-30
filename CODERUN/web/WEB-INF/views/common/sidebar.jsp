@@ -59,12 +59,12 @@
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed" href="/관리자/관리자 게시글 목록.html"> 게시판
+					</a> <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/board/list"> 게시판
 						관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed" href="/관리자/관리자 신고 관리.html"> 신고
+					</a> <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/report/list"> 신고
 						관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>

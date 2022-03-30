@@ -12,6 +12,8 @@ import com.coderun.jsp.admin.model.dao.CalculationDAO;
 import com.coderun.jsp.admin.model.dao.RequestDAO;
 import com.coderun.jsp.admin.model.dto.CalculationDTO;
 import com.coderun.jsp.admin.model.dto.RequestDTO;
+import com.coderun.jsp.board.model.dao.ReportDAO;
+import com.coderun.jsp.board.model.dto.ReportDTO;
 import com.coderun.jsp.common.paging.Pagenation;
 import com.coderun.jsp.common.paging.SelectCriteria;
 import com.coderun.jsp.member.model.dao.MemberDAO;
@@ -28,6 +30,7 @@ public class AdminService {
 	private final CalculationDAO calculationDAO;
 	private final RequestDAO requestDAO;
 	private final MentorDAO mentorDAO;
+	private final ReportDAO reportDAO;
 	public AdminService() {
 		
 		memberDAO = new MemberDAO();
@@ -35,19 +38,8 @@ public class AdminService {
 		calculationDAO = new CalculationDAO();
 		requestDAO = new RequestDAO();
 		mentorDAO = new MentorDAO();
+		reportDAO = new ReportDAO();
 	}
-	
-//	public List<MemberDTO> selectAllEmp() {
-//		
-//		SqlSession session = getSqlSession();
-//				
-//		List<MemberDTO> memList = memberDAO.selectAllMember(session);
-//
-//		session.close();
-//		
-//		return memList;
-//	}
-	
 	
 	// 검색한 회원 목록 조회용 메소드
 	public Map<String, Object> selectMemberList(int pageNo, Map<String, String> searchMap) {
@@ -240,16 +232,65 @@ public class AdminService {
 		int result = RequestDAO.rejectMentor(session, reqNo);
 		
 		if(result > 0) {
+
+	public Map<String, Object> selectReportList(int pageNo, Map<String, String> searchMap) {
+		
+		SqlSession session = getSqlSession();
+		
+		int totalCount = reportDAO.selectTotalCount(session, searchMap);
+		System.out.println("totalMemberCount : " + totalCount);
+		
+		int limit = 10;
+		
+		int buttonAmount = 5;
+		
+		SelectCriteria selectCriteria = null;
+		
+		if(searchMap.get("searchCondition") != null && !"".equals(searchMap.get("searchCondition"))) {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchMap.get("searchCondition"), searchMap.get("searchValue"));
+		} else  {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+		}
+		
+		System.out.println(selectCriteria);
+		
+		List<ReportDTO> reportList = reportDAO.selectReportList(session, selectCriteria);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("reportList", reportList);
+		returnMap.put("selectCriteria", selectCriteria);
+		
+		session.close();
+		
+		return returnMap;
+		
+	}
+
+	public ReportDTO selectOneReport(int no) {
+		SqlSession session = getSqlSession();
+		
+		ReportDTO reportDetail = null;
+		
+		reportDetail = reportDAO.selectOneReport(session, no);
+
+		if(reportDetail != null) {
+
 			session.commit();
 		} else {
 			session.rollback();
 		}
+		session.close();
 		
-		return result;
+		return reportDetail
 	}
 
 	
 
 	
+
+
+		
+		;
+	}
 
 }

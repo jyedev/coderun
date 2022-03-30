@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReportDAO">
+	<resultMap type="com.coderun.jsp.board.model.dto.ReportDTO" id="reportResultMap">
+		<id property="no" column="REP_NO"/>
+		<result property="memberId" column="REP_MEMBER_ID"/>
+		<result property="bdNo" column="REP_BD_NO"/>
+		<result property="cmtNo" column="REP_CMT_NO"/>
+		<result property="typeNo" column="REP_TYPE_NO"/>
+		<result property="result" column="REP_RESULT"/>
+		<association property="reportReason" resultMap="reportReasonResultMap"/> 
+		<association property="board" resultMap="generalBoardResultMap"/>
+		<association property="comment" resultMap="commentResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.board.model.dto.ReportReasonDTO" id="reportReasonResultMap">
+		<id property="typeNo" column="REP_TYPE_NO"/>
+		<result property="reason" column="REP_REASON"/>
+	</resultMap>
+
+	<resultMap type="com.coderun.jsp.board.model.dto.BoardDTO" id="generalBoardResultMap">
+		<id property="no" column="BD_NO"/>
+		<result property="title" column="BD_TITLE"/>
+		<result property="content" column="BD_CONTENT"/>
+		<result property="writerId" column="BD_WRITER_ID"/>
+		<result property="date" column="BD_DATE"/>
+		<result property="update" column="BD_UPDATE"/>
+		<result property="delete" column="BD_DELETE"/>
+		
+		<association property="writer" resultMap="memberResultMap"/>
+		<collection property="commentList" resultMap="commentResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.board.model.dto.CommentDTO" id="commentResultMap">
+		<id property="no" column="CMT_NO"/>
+		<result property="writerId" column="CMT_WRITER_ID"/>
+		<result property="content" column="CMT_CONTENT"/>
+		<result property="date" column="CMT_DATE"/>
+		<result property="update" column="CMT_UPDATE"/>
+		<result property="delete" column="CMT_DELETE"/>
+		<result property="bdNo" column="CMT_BD_NO"/>
+		<!-- <association property="board" resultMap="generalBoardResultMap"/> -->
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
+		<id property="id" column="MEMBER_ID"/>
+		<result property="pwd" column="MEMBER_PWD"/>
+		<result property="name" column="MEMBER_NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="gender" column="GENDER"/>
+		<result property="type" column="MEMBER_TYPE"/>
+		<result property="freepassYn" column="FREEPASS_YN"/>
+		<result property="status" column="MEMBER_STATUS"/>
+	</resultMap>
+
+	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+		SELECT
+			   COUNT(*)
+		  FROM TB_REPORT
+		 <where>
+		 	<if test="searchCondition != null">
+		 	REP_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		 	</if> 
+		 </where>
+	</select>
+	
+	<select id="selectReportList" resultMap="reportResultMap">
+      SELECT
+            A.RNUM
+          , A.REP_NO
+          , A.REP_MEMBER_ID
+          , A.REP_BD_NO
+          , A.REP_CMT_NO
+          , A.REP_TYPE_NO
+          , A.REP_RESULT
+        FROM (SELECT ROWNUM RNUM
+                  , B.REP_NO
+                  , B.REP_MEMBER_ID
+                  , B.REP_BD_NO
+                  , B.REP_CMT_NO
+                  , B.REP_TYPE_NO
+                  , B.REP_RESULT
+                FROM (SELECT C.REP_NO
+                          , C.REP_MEMBER_ID
+                          , C.REP_BD_NO
+                          , C.REP_CMT_NO
+                          , C.REP_TYPE_NO
+                          , C.REP_RESULT
+                        FROM TB_REPORT C
+      <if test="searchCondition != null">
+      WHERE REP_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+      </if>
+      ) B
+      <![CDATA[
+      WHERE ROWNUM <= #{ endRow }
+      ]]>
+      ) A
+      WHERE A.RNUM >= #{ startRow }
+   </select>
+   
+   <select id="selectOneReport" resultMap="reportResultMap">
+   		SELECT
+   			   A.REP_MEMBER_ID
+   			 , B.BD_TITLE
+   			 , B.BD_CONTENT
+   			 , C.CMT_NO
+   			 , C.CMT_CONTENT
+   			 , D.REP_REASON
+   		 FROM TB_REPORT A
+        JOIN TB_BOARD B ON (A.REP_BD_NO = B.BD_NO)
+        LEFT JOIN TB_COMMENT C ON (A.REP_CMT_NO = C.CMT_NO)
+        JOIN TB_REPORT_REASON D ON (A.REP_TYPE_NO = D.REP_TYPE_NO)
+   		WHERE A.REP_NO = #{ no }
+   </select>
+   
+<!--    <select id="selectOneReport" resultMap="reportResultMap">
+   		SELECT
+   			   
+   </select> -->
+</mapper>
