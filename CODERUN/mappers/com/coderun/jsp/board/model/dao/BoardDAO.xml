@@ -146,6 +146,7 @@
 	       TB_BOARD
 	   SET BD_TITLE = #{ title }
 	     , BD_CONTENT = #{ content }
+	     , BD_UPDATE = SYSDATE
 	 WHERE BD_NO = #{ no }
 	</update>
 	

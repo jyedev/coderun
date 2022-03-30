@@ -19,25 +19,50 @@
 		<div class="blog-page mx-auto">
 			<br>
 			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+           		
+           		<!-- 게시글 제목 들어가는 곳 -->
            		<h1 class="h2" width="30%">${ board.title }</h1>
+           		
           		<div class="writer-info">
            			<input type="hidden" value=${ board.no }>
            			<span>${ board.writerId }</span>
-           			<span>${ board.date }</span>
+           			<!-- 게시글 작성일이나 수정일 들어가는 곳 -->
+           				<c:if test="${ empty board.update }">
+           				<span id="board-day">${ board.date }</span>
+           				</c:if>
+						<c:if test="${ !empty board.update }">
+						<span id="board-day">${ board.update }</span>
+						</c:if>
           		</div>
+          		
        		</div>
-       	<div class="writebox">
-       		${ board.content }
-       	</div>
-       	<div class="btn-toolbar">
-       		<div class="btn-group me-2">
-            	<button class="btn btn-sm" type="button" onclick="updateBoard(${ board.no })">수정</button>
-               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteBoard()">삭제</button>
-               	<form name="boardForm" method="post">
-					<input type="hidden" name="no" value="${ board.no }">
-				</form>
-           	</div>
-       	</div>
+		       		
+		       	<!-- 게시글 내용 들어가는 곳 -->
+		       	<div class="writebox">
+		       		${ board.content }
+		       	</div>
+		       	
+		       	<div class="btn-toolbar">
+	       			<!-- 게시글 작성자만 수정, 삭제 가능 -->
+	       			<c:if test="${ board.writerId == sessionScope.loginMember.id }">
+	       			<div class="btn-group me-2">
+	            	<button class="btn btn-sm" type="button" onclick="updateBoard(${ board.no })">수정</button>
+	               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteBoard()">삭제</button>
+	               	</div>
+					</c:if>
+					<!-- 게시글 작성자 아니면 신고 -->
+       				<c:if test="${ board.writerId != sessionScope.loginMember.id }">
+       				<div class="btn-group me-2">
+       					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">신고</button>
+       				</div>
+       				</c:if>
+       				
+	               	<form name="boardForm" method="post">
+						<input type="hidden" name="no" value="${ board.no }">
+					</form>
+				</div>
+        </div>
+       	
        	<br><br><br>
        	<div class="commentbox mx-auto border-top">
        		<div class="commenttitle"><br><h5>댓글</h5></div>
@@ -63,7 +88,7 @@
                    				<td width="10%" id="comment-day">${ comment.date }</td>
                    				</c:if>
                    				<c:if test="${ !empty comment.update }">
-                   				<td width="10%" id="comment-day">${ comment.date }</td>
+                   				<td width="10%" id="comment-day">${ comment.update }</td>
                    				</c:if>
                    			</tr>
                    		</table>

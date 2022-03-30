@@ -24,11 +24,11 @@
 				movePath = "${ pageContext.servletContext.contextPath }/board/list";
 				break;
 			case "updateBoard" : 
-				successMessage = "게시글 수정에 성공하셨습니다!";
+				successMessage = "게시글이 수정되었습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/board/view?no=${ no }";
 				break;
 			case "deleteBoard" : 
-				successMessage = "게시글 삭제에 성공하셨습니다!";
+				successMessage = "게시글이 삭제되었습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/board/list";
 				break;
 
