@@ -63,6 +63,7 @@
 	       AND BD_DELETE = 'N'
     	</where>
 	</select>
+	
 	<select id="selectBoardList" resultMap="generalBoardResultMap">
     SELECT /* com.greedy.jsp.board.model.dao.BoardDAO#selectBoardList() */
                A.RNUM
@@ -108,6 +109,7 @@
          WHERE A.RNUM >= #{ startRow }     
          ORDER BY A.RNUM 
 	</select>
+	
 	<insert id="insertBoard">
         INSERT
           INTO TB_BOARD 
@@ -116,6 +118,23 @@
         ( SEQ_BD_NO.NEXTVAL, #{ title }, #{ content }, #{ writerId })
 	</insert>
 	
+	<insert id="insertComment">
+		INSERT
+		  INTO TB_COMMENT
+		(
+		  CMT_NO
+		, CMT_WRITER_ID
+		, CMT_CONTENT
+		, CMT_BD_NO
+		)
+		VALUES
+		(
+		  SEQ_CMT_NO.NEXTVAL
+		, #{ writerId }
+		, #{ content }
+		, #{ bdNo }
+		)
+	</insert>
 	
 	<select id="selectBoardView" resultMap="generalBoardResultMap">
         SELECT
@@ -139,6 +158,7 @@
           LEFT JOIN TB_IMAGE C ON (B.CMT_WRITER_ID = C.IMG_MEMBER_ID)
          WHERE A.BD_DELETE = 'N'
            AND A.BD_NO = #{ no }
+         ORDER BY A.BD_NO, B.CMT_NO
 	</select>
 	
 	<update id="updateBoard">
@@ -149,10 +169,23 @@
 	 WHERE BD_NO = #{ no }
 	</update>
 	
+	<update id="updateComment">
+		UPDATE TB_COMMENT
+		   SET CMT_CONTENT = #{ content }
+		     , CMT_UPDATE = SYSDATE
+		 WHERE CMT_NO = #{ no }
+	</update>
+	
 	<update id="deleteBoard">
 		UPDATE
 		       TB_BOARD
 		   SET BD_DELETE = 'Y'
 		 WHERE BD_NO = #{ no }
+	</update>
+	
+	<update id="deleteComment">
+		UPDATE TB_COMMENT
+		   SET CMT_DELETE = 'Y'
+		 WHERE CMT_NO = #{ no }
 	</update>
 </mapper>
