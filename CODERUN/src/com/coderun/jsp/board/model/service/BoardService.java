@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.coderun.jsp.member.model.dto.MemberDTO;
 import com.coderun.jsp.board.model.dao.BoardDAO;
 import com.coderun.jsp.board.model.dto.BoardDTO;
+import com.coderun.jsp.board.model.dto.CommentDTO;
 import com.coderun.jsp.common.paging.Pagenation;
 import com.coderun.jsp.common.paging.SelectCriteria;
 
@@ -22,10 +23,8 @@ public class BoardService {
 		boardDAO = new BoardDAO();
 	}
 	
-	
 	/* 게시물 전체 조회용 메소드 */
 	public Map<String, Object> selectBoardList(int pageNo, Map<String, String> searchMap) {
-		
 		SqlSession session = getSqlSession();
 		
 		int totalCount = boardDAO.selectTotalCount(session, searchMap);
@@ -60,7 +59,6 @@ public class BoardService {
 	
 	/* 신규 게시물 등록용 메소드 */
 	public int insertBoard(BoardDTO newBoard) {
-		
 		SqlSession session = getSqlSession();
 		
 		int result = boardDAO.insertBoard(session, newBoard);
@@ -78,7 +76,6 @@ public class BoardService {
 	
 	/* 게시물 상세보기용 메소드 */
 	public BoardDTO selectBoardView(int no) {
-		
 		SqlSession session = getSqlSession();
 		BoardDTO boardView = null;
 		
@@ -90,7 +87,6 @@ public class BoardService {
 			session.rollback();
 		}
 				
-				
 		session.close();
 		
 		return boardView;
@@ -98,7 +94,6 @@ public class BoardService {
 	
 	/* 게시글 수정용 메소드 */
 	public int updateBoard(BoardDTO updateBoard) {
-		
 		SqlSession session = getSqlSession();
 		
 		int result = boardDAO.updateBoard(session, updateBoard);
@@ -117,10 +112,57 @@ public class BoardService {
 	
 	/* 게시글 삭제용 메소드 */
 	public int deleteBoard(int no) {
-		
 		SqlSession session = getSqlSession();
 		
 		int result = boardDAO.deleteBoard(session, no);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int insertComment(CommentDTO newComment) {
+		SqlSession session = getSqlSession();
+		
+		int result = boardDAO.insertComment(session, newComment);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int deleteComment(int no) {
+		SqlSession session = getSqlSession();
+		
+		int result = boardDAO.deleteComment(session, no);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+	
+	public int updateComment(CommentDTO updateComment) {
+		SqlSession session = getSqlSession();
+		
+		int result = boardDAO.updateComment(session, updateComment);
 		
 		if(result > 0) {
 			session.commit();

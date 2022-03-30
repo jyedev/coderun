@@ -13,6 +13,19 @@
 		<result property="delete" column="BD_DELETE"/>
 		
 		<association property="writer" resultMap="memberResultMap"/>
+		<collection property="commentList" resultMap="commentResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.board.model.dto.CommentDTO" id="commentResultMap">
+		<id property="no" column="CMT_NO"/>
+		<result property="writerId" column="CMT_WRITER_ID"/>
+		<result property="content" column="CMT_CONTENT"/>
+		<result property="date" column="CMT_DATE"/>
+		<result property="update" column="CMT_UPDATE"/>
+		<result property="delete" column="CMT_DELETE"/>
+		<result property="bdNo" column="CMT_BD_NO"/>
+		
+		<association property="writer" resultMap="memberResultMap"/>
 	</resultMap>
 		
 	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
@@ -25,6 +38,16 @@
 		<result property="type" column="MEMBER_TYPE"/>
 		<result property="freepassYn" column="FREEPASS_YN"/>
 		<result property="status" column="MEMBER_STATUS"/>
+		
+		<association property="image" resultMap="imageResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.member.model.dto.ImageDTO" id="imageResultMap">
+		<id property="no" column="IMG_NO"/>
+		<result property="origin" column="IMG_ORIGIN"/>
+		<result property="edit" column="IMG_EDIT"/>
+		<result property="root" column="IMG_ROOT"/>
+		<result property="memberId" column="IMG_MEMBER_ID"/>
 	</resultMap>
 	
 	<select id="selectTotalCount" resultType="_int" parameterType="hashmap">
@@ -40,6 +63,7 @@
 	       AND BD_DELETE = 'N'
     	</where>
 	</select>
+	
 	<select id="selectBoardList" resultMap="generalBoardResultMap">
     SELECT /* com.greedy.jsp.board.model.dao.BoardDAO#selectBoardList() */
                A.RNUM
@@ -85,6 +109,7 @@
          WHERE A.RNUM >= #{ startRow }     
          ORDER BY A.RNUM 
 	</select>
+	
 	<insert id="insertBoard">
         INSERT
           INTO TB_BOARD 
@@ -93,6 +118,23 @@
         ( SEQ_BD_NO.NEXTVAL, #{ title }, #{ content }, #{ writerId })
 	</insert>
 	
+	<insert id="insertComment">
+		INSERT
+		  INTO TB_COMMENT
+		(
+		  CMT_NO
+		, CMT_WRITER_ID
+		, CMT_CONTENT
+		, CMT_BD_NO
+		)
+		VALUES
+		(
+		  SEQ_CMT_NO.NEXTVAL
+		, #{ writerId }
+		, #{ content }
+		, #{ bdNo }
+		)
+	</insert>
 	
 	<select id="selectBoardView" resultMap="generalBoardResultMap">
         SELECT
@@ -102,9 +144,21 @@
              , A.BD_WRITER_ID
              , A.BD_DATE
              , A.BD_UPDATE
+             , B.CMT_NO
+             , B.CMT_WRITER_ID
+             , B.CMT_CONTENT
+             , B.CMT_DATE
+             , B.CMT_UPDATE
+             , B.CMT_DELETE
+             , C.IMG_ORIGIN
+             , C.IMG_EDIT
+             , C.IMG_ROOT
           FROM TB_BOARD A
+          LEFT JOIN TB_COMMENT B ON (A.BD_NO = B.CMT_BD_NO)
+          LEFT JOIN TB_IMAGE C ON (B.CMT_WRITER_ID = C.IMG_MEMBER_ID)
          WHERE A.BD_DELETE = 'N'
            AND A.BD_NO = #{ no }
+         ORDER BY A.BD_NO, B.CMT_NO
 	</select>
 	
 	<update id="updateBoard">
@@ -115,10 +169,23 @@
 	 WHERE BD_NO = #{ no }
 	</update>
 	
+	<update id="updateComment">
+		UPDATE TB_COMMENT
+		   SET CMT_CONTENT = #{ content }
+		     , CMT_UPDATE = SYSDATE
+		 WHERE CMT_NO = #{ no }
+	</update>
+	
 	<update id="deleteBoard">
 		UPDATE
 		       TB_BOARD
 		   SET BD_DELETE = 'Y'
 		 WHERE BD_NO = #{ no }
+	</update>
+	
+	<update id="deleteComment">
+		UPDATE TB_COMMENT
+		   SET CMT_DELETE = 'Y'
+		 WHERE CMT_NO = #{ no }
 	</update>
 </mapper>
