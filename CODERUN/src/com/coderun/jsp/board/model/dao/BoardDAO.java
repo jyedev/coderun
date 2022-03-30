@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.coderun.jsp.board.model.dto.BoardDTO;
+import com.coderun.jsp.board.model.dto.CommentDTO;
 import com.coderun.jsp.common.paging.SelectCriteria;
 
 public class BoardDAO {
@@ -46,6 +47,18 @@ public class BoardDAO {
 		
 		return session.update("BoardDAO.deleteBoard", no);
 		
+	}
+
+	public int insertComment(SqlSession session, CommentDTO newComment) {
+		return session.insert("BoardDAO.insertComment", newComment);
+	}
+
+	public int deleteComment(SqlSession session, int no) {
+		return session.update("BoardDAO.deleteComment", no);
+	}
+	
+	public int updateComment(SqlSession session, CommentDTO updateComment) {
+		return session.update("BoardDAO.updateComment", updateComment);
 	}
 }
 	

@@ -14,6 +14,16 @@
     <link href="${ pageContext.servletContext.contextPath }/resources/css/community-style.css" rel="stylesheet" />
 </head>
 <body id="page-top">
+<script type="text/javascript">
+   (function() {
+      const result1 = "${ requestScope.insertCommentResult }";
+      const result2 = "${ reqeustScope.deleteCommentResult }";
+      if(result1 == "fail")
+    	  alert("댓글 등록에 실패했습니다.");
+      if(result2 == "fail")
+    	  alert("댓글 삭제에 실패했습니다.");
+   })();
+</script>
 	<jsp:include page="../common/menubar.jsp"/>
 	<section>
 		<div class="blog-page mx-auto">
@@ -43,7 +53,7 @@
        		<div class="commenttitle"><br><h5>댓글</h5></div>
            		<br><br>
            		<!-- 댓글 -->
-           		<c:forEach var="comment" items="${ board.commentList }">
+           		<c:forEach var="comment" items="${ board.commentList }" varStatus="status">
            		<c:if test="${ comment.delete eq 'N' }">
            		<div class="commentbody">
            			<div class="icon-box">
@@ -55,7 +65,7 @@
 						            <img id="profilepic" src="${ pageContext.servletContext.contextPath }/resources/img/user-icon.png">${ comment.writerId }
 						            </c:if>
 						            <c:if test="${ !empty comment.writer.image.edit }">
-						            <img id="profilepic" src="${ pageContext.servletContext.contextPath }${ mentor.member.image.root }/${ mentor.member.image.edit }">${ comment.writerId }
+						            <img id="profilepic" src="${ pageContext.servletContext.contextPath }${ comment.writer.image.root }/${ comment.writer.image.edit }">${ comment.writerId }
 						            </c:if>
            						</td>
                    				<!-- 작성일이나 수정일 들어가는 곳 -->
@@ -63,26 +73,45 @@
                    				<td width="10%" id="comment-day">${ comment.date }</td>
                    				</c:if>
                    				<c:if test="${ !empty comment.update }">
-                   				<td width="10%" id="comment-day">${ comment.date }</td>
+                   				<td width="10%" id="comment-day">${ comment.update }</td>
                    				</c:if>
                    			</tr>
                    		</table>
                		</div>
                		<div class="commentwrapping">
                			<!-- 댓글 내용 들어가는 곳 -->
-               			<p class="text-box mx-auto">${ comment.content }</p>
+               			<p class="text-box mx-auto" id="contentView${ status.count }">${ comment.content }</p>
                			<div class="btn-toolbar">
                				<!-- 댓글 작성자만 수정, 삭제 가능 -->
                				<c:if test="${ comment.writerId == sessionScope.loginMember.id }">
                				<div class="btn-group me-2">
-               					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">수정</button>
-               					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deletecheck">삭제</button>
+				            	<button class="btn btn-sm" type="button" id="modifyCmtBtn${ status.count }" onclick="modifyComment(${ status.count })">수정</button>
+				               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteComment(${ status.count })">삭제</button>
+				               	<form name="commentForm${ status.count }" method="post" id="commentForm${ status.count }">
+									<input type="hidden" name="no" value="${ comment.no }">
+									<input type="hidden" name="bdNo" value="${ board.no }">
+									<input type="hidden" name="content" id="modifyCmtValue${ status.count }">
+								</form>
                				</div>
                				</c:if>
                				<!-- 댓글 작성자 아니면 신고 -->
                				<c:if test="${ comment.writerId != sessionScope.loginMember.id }">
+               				<c:if test="${ sessionScope.loginMember.type eq '회원' || '멘토' }">
                				<div class="btn-group me-2">
                					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">신고</button>
+               				</div>
+               				</c:if>
+               				</c:if>
+               				<!-- 관리자면 수정, 삭제 가능 -->
+               				<c:if test="${ sessionScope.loginMember.type eq '관리자' }">
+               				<div class="btn-group me-2">
+				            	<button class="btn btn-sm" type="button" id="modifyCmtBtn${ status.count }" onclick="modifyComment(${ status.count })">수정</button>
+				               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteComment(${ status.count })">삭제</button>
+				               	<form name="commentForm${ status.count }" method="post" id="commentForm${ status.count }">
+									<input type="hidden" name="no" value="${ comment.no }">
+									<input type="hidden" name="bdNo" value="${ board.no }">
+									<input type="hidden" name="content" id="modifyCmtValue${ status.count }">
+								</form>
                				</div>
                				</c:if>
         				</div>
@@ -90,13 +119,29 @@
         		</div>
         		</c:if>
         		</c:forEach>
+        		<br>
         		<div class="comment-form">
-        			<form>
-        				<div class="form-group">
-        					<textarea rows="1" class="form-control" placeholder="댓글 입력"></textarea>
+        			<form id="insertCommentForm" method="post" action="${ pageContext.servletContext.contextPath }/board/insertComment">
+        				<div class="form-group row">
+        					<input type="hidden" value="${ board.no }" name="bdNo">
+        					<div class="col-10">
+        						<c:if test="${ !empty sessionScope.loginMember }">
+        						<textarea rows="1" class="form-control" placeholder="댓글 입력" name="content"></textarea>
+        						</c:if>
+        						<c:if test="${ empty sessionScope.loginMember }">
+        						<textarea rows="1" class="form-control" placeholder="로그인 후 이용해주세요." name="content"></textarea>
+        						</c:if>
+        					</div>
+        					<div class="col-auto">
+        						<!-- 로그인한 회원만 작성 가능 -->
+        						<c:if test="${ !empty sessionScope.loginMember }">
+        						<button type="submit" class="btn btn-block btn-primary" id="addComment">등록</button>
+        						</c:if>
+        						<c:if test="${ empty sessionScope.loginMember }">
+        						<button type="button" class="btn btn-block btn-primary" id="addComment">등록</button>
+        						</c:if>
+        					</div>
         				</div>
-        				<br>
-        				<button type="submit" class="btn btn-block btn-primary">등록</button>
         			</form>
         		</div>
         	</div>
@@ -131,30 +176,54 @@
 		</div>
 	</div>
 	
-	<!-- 삭제 모달 -->
-	<div class="modal" id="deletecheck" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="mb-3">삭제가 완료되었습니다.</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script>
 	    function updateBoard(no){
 			location.href = "${ pageContext.servletContext.contextPath }/board/update?no="+no;
-		}	function deleteBoard(){
+		}
+	    
+	    function deleteBoard(){
 			if(confirm('이 게시글을 삭제하시겠습니까?')){
 				document.forms.boardForm.action = "${ pageContext.servletContext.contextPath }/board/delete";
 				document.forms.boardForm.submit();
 			}
 		}
+	    
+	    function deleteComment(num) {
+	    	let form = document.getElementById('commentForm' + num);
+	    	
+	    	if(confirm('댓글을 삭제하시겠습니까?')) {
+	    		form.action = "${ pageContext.servletContext.contextPath }/board/deleteComment";
+	    		form.submit();
+	    	}
+	    }
+	    
+	    function modifyComment(num) {
+			let contentView = document.getElementById('contentView' + num);
+			let modifyCmtBtn = document.getElementById('modifyCmtBtn' + num);
+			let modifyCmtValue = document.getElementById('modifyCmtValue' + num);
+			let form = document.getElementById('commentForm' + num);
+			
+			let text = document.createElement('textarea');
+			text.rows = '1';
+			text.className = 'form-control';
+			
+			text.value = contentView.innerHTML;
+			
+			contentView.replaceWith(text);
+			
+			text.onkeydown = function(input) {
+				if(input.key == 'Enter') {
+					contentView.innerHTML = text.value;
+					text.replaceWith(contentView);
+					modifyCmtValue.value = text.value;
+					
+					form.action = "${ pageContext.servletContext.contextPath }/board/updateComment";
+					form.submit();
+				}
+			};
+		};
     </script>
 </body>
 </html>
