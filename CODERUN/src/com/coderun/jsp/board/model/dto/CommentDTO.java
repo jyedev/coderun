@@ -2,77 +2,89 @@ package com.coderun.jsp.board.model.dto;
 
 import java.sql.Date;
 
+import com.coderun.jsp.member.model.dto.MemberDTO;
 
 public class CommentDTO {
-	
-	private int cmtNo;
-	private String cmtWriter;
-	private String cmtContent;
-	private Date cmtDate;
-	private Date cmtUpdate;
-	private String cmtDelete;
+	private int no;
+	private String writerId;
+	private MemberDTO writer;
+	private String content;
+	private Date date;
+	private Date update;
+	private String delete;
 	private int bdNo;
+	private BoardDTO board;
 	
 	public CommentDTO() {}
 
-	public CommentDTO(int cmtNo, String cmtWriter, String cmtContent, Date cmtDate, Date cmtUpdate, String cmtDelete,
-			int bdNo) {
+	public CommentDTO(int no, String writerId, MemberDTO writer, String content, Date date, Date update, String delete,
+			int bdNo, BoardDTO board) {
 		super();
-		this.cmtNo = cmtNo;
-		this.cmtWriter = cmtWriter;
-		this.cmtContent = cmtContent;
-		this.cmtDate = cmtDate;
-		this.cmtUpdate = cmtUpdate;
-		this.cmtDelete = cmtDelete;
+		this.no = no;
+		this.writerId = writerId;
+		this.writer = writer;
+		this.content = content;
+		this.date = date;
+		this.update = update;
+		this.delete = delete;
 		this.bdNo = bdNo;
+		this.board = board;
 	}
 
-	public int getCmtNo() {
-		return cmtNo;
+	public int getNo() {
+		return no;
 	}
 
-	public void setCmtNo(int cmtNo) {
-		this.cmtNo = cmtNo;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
-	public String getCmtWriter() {
-		return cmtWriter;
+	public String getWriterId() {
+		return writerId;
 	}
 
-	public void setCmtWriter(String cmtWriter) {
-		this.cmtWriter = cmtWriter;
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
 	}
 
-	public String getCmtContent() {
-		return cmtContent;
+	public MemberDTO getWriter() {
+		return writer;
 	}
 
-	public void setCmtContent(String cmtContent) {
-		this.cmtContent = cmtContent;
+	public void setWriter(MemberDTO writer) {
+		this.writer = writer;
 	}
 
-	public Date getCmtDate() {
-		return cmtDate;
+	public String getContent() {
+		return content;
 	}
 
-	public void setCmtDate(Date cmtDate) {
-		this.cmtDate = cmtDate;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Date getCmtUpdate() {
-		return cmtUpdate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCmtUpdate(Date cmtUpdate) {
-		this.cmtUpdate = cmtUpdate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getCmtDelete() {
-		return cmtDelete;
+	public Date getUpdate() {
+		return update;
 	}
 
-	public void setCmtDelete(String cmtDelete) {
-		this.cmtDelete = cmtDelete;
+	public void setUpdate(Date update) {
+		this.update = update;
+	}
+
+	public String getDelete() {
+		return delete;
+	}
+
+	public void setDelete(String delete) {
+		this.delete = delete;
 	}
 
 	public int getBdNo() {
@@ -83,16 +95,18 @@ public class CommentDTO {
 		this.bdNo = bdNo;
 	}
 
-	@Override
-	public String toString() {
-		return "CommentDTO [cmtNo=" + cmtNo + ", cmtWriter=" + cmtWriter + ", cmtContent=" + cmtContent + ", cmtDate="
-				+ cmtDate + ", cmtUpdate=" + cmtUpdate + ", cmtDelete=" + cmtDelete + ", bdNo=" + bdNo + "]";
+	public BoardDTO getBoard() {
+		return board;
 	}
 
-	
-	
-	
+	public void setBoard(BoardDTO board) {
+		this.board = board;
+	}
 
-	
-
+	@Override
+	public String toString() {
+		return "CommentDTO [no=" + no + ", writerId=" + writerId + ", writer=" + writer + ", content=" + content
+				+ ", date=" + date + ", update=" + update + ", delete=" + delete + ", bdNo=" + bdNo + ", board=" + board
+				+ "]";
+	}
 }
