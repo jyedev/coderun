@@ -9,9 +9,10 @@
 		<result property="nickname" column="MT_NICKNAME"/>
 		<result property="introduce" column="MT_INTRODUCE"/>
 		<result property="language" column="MT_LANGUAGE"/>
+		<result property="strength" column="MT_STRENGTH"/>
 		
 		<association property="member" resultMap="memberResultMap"/>
-		
+		<association property="request" resultMap="requestResultMap"/>
 		
 		<collection property="curriculumName" resultMap="curriculumResultMap"/>
 	</resultMap>
@@ -40,7 +41,7 @@
 	</resultMap>
 	
 	<resultMap type="com.coderun.jsp.admin.model.dto.RequestDTO" id="requestResultMap">
-		<id property="reqNO" column="REQ_NO" />
+		<id property="reqNo" column="REQ_NO" />
 		<result property="approveStatus" column="REQ_APROV_STATUS" />
 		<result property="reqDate" column="REQ_DATE" />
 		<result property="memberId" column="REQ_MEMBER_ID" />
@@ -59,13 +60,13 @@
   			(
   			  MT_MEMBER_ID
   			, MT_NICKNAME
-  			, MT_INTRODUCE
+  			, MT_STRENGTH
   			)
   			VALUES
   			(
   			  #{ memberId }
   			, #{ nickname }
-  			, #{ introduce }
+  			, #{ strength }
   			)
   	</insert>
   	
@@ -131,6 +132,29 @@
 		, #{ memberId }
 		)
 	</insert> 
+	
+	<select id="selectOneMentor" resultMap="mentorResultMap">
+		SELECT
+  			  M.MT_MEMBER_ID
+  			, M.MT_NICKNAME
+  			, M.MT_LANGUAGE
+  			, M.MT_INTRODUCE
+  			, M.MT_STRENGTH
+ 			, C.CUR_NO
+ 			, C.CUR_NAME
+  			, C.CUR_LINK
+  			, B.IMG_ORIGIN
+  			, B.IMG_EDIT
+  			, B.IMG_ROOT
+  			, R.REQ_NO
+  			, R.REQ_APROV_STATUS
+  			FROM TB_MENTOR M
+ 	 	JOIN TB_REQUEST R ON (M.MT_MEMBER_ID = R.REQ_MEMBER_ID)
+  		LEFT JOIN TB_CURRICULUM C ON (M.MT_MEMBER_ID = C.MT_MEMBER_ID)
+  		LEFT JOIN TB_IMAGE B ON (M.MT_MEMBER_ID = B.IMG_MEMBER_ID)
+  		WHERE M.MT_MEMBER_ID = #{ memberId }
+	</select>
+	
 	
 
 </mapper>

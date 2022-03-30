@@ -26,11 +26,11 @@
                     <input type="text" class="form-control" name="nickname" placeholder="닉네임" required>
                 </div>
                 <br><br>
-                <h4>자기 소개</h4>
                 <br>
+                <h4>강점</h4>
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">자기 소개</label>
-                    <textarea class="form-control" rows="5" style="resize: none" name="introduce" required></textarea>
+                    <label for="exampleFormControlTextarea1" class="form-label">코드런에 지원한 이유를 본인의 경험/경력 등 구체적인 사례를 들어 기술하여 주십시오.(300자 이상)</label>
+                    <textarea class="form-control" rows="5" style="resize: none" name="strength" required></textarea>
                 </div><br>
                 <div class="d-grid col-2 mx-auto">
                     <button class="btn btn-primary" type="submit">신청하기</button>

@@ -14,6 +14,15 @@ public class RequestDTO {
 	
 	public RequestDTO() {}
 
+	public RequestDTO(int reqNo, String approveStatus, Date reqDate, String memberId, MemberDTO member) {
+		super();
+		this.reqNo = reqNo;
+		this.approveStatus = approveStatus;
+		this.reqDate = reqDate;
+		this.memberId = memberId;
+		this.member = member;
+	}
+
 	public int getReqNo() {
 		return reqNo;
 	}
@@ -46,14 +55,19 @@ public class RequestDTO {
 		this.memberId = memberId;
 	}
 
+	public MemberDTO getMember() {
+		return member;
+	}
+
+	public void setMember(MemberDTO member) {
+		this.member = member;
+	}
+
 	@Override
 	public String toString() {
 		return "RequestDTO [reqNo=" + reqNo + ", approveStatus=" + approveStatus + ", reqDate=" + reqDate
-				+ ", memberId=" + memberId + "]";
+				+ ", memberId=" + memberId + ", member=" + member + "]";
 	}
-	
-	
-	
-	
+
 	
 }

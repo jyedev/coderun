@@ -75,6 +75,16 @@ public class MemberDAO {
 		return session.update("MemberDAO.updateFreepass", memberId);
 	}
 
+	public int acceptMentor(SqlSession session, String memberId) {
+
+		return session.update("MemberDAO.acceptMentor", memberId);
+	}
+
+	public int rejectMentor(SqlSession session, String memberId) {
+
+		return session.update("MemberDAO.rejectMentor", memberId);
+	}
+
 	
 
 }

@@ -21,11 +21,6 @@ public class MentorDAO {
 	public List<MentorDTO> selectAllMentorList(SqlSession session) {
 
 		return session.selectList("MentorDAO.selectAllMentorList");
-
-		//List<MentorDTO> mentorList = new ArrayList();
-		//mentorList = session.selectList("MentorDAO.selectAllMentorList");
-		//return mentorList;
-	
 		
 	}
 	
@@ -51,6 +46,13 @@ public class MentorDAO {
 	public List<CurriculumDTO> selectCurriDetail(SqlSession session, String memberId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	public MentorDTO selectOneMentor(SqlSession session, String memberId) {
+
+		return session.selectOne("MentorDAO.selectOneMentor", memberId);
 	}
 
 

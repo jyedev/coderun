@@ -27,12 +27,12 @@ public class MentorApply2Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = ((MemberDTO) request.getSession().getAttribute("loginMember")).getId();
 		String nickname = request.getParameter("nickname");
-		String introduce = request.getParameter("introduce");
+		String strength = request.getParameter("strength");
 		
 		MentorDTO requestMentor = new MentorDTO();
 		requestMentor.setMemberId(memberId);
 		requestMentor.setNickname(nickname);
-		requestMentor.setIntroduce(introduce);
+		requestMentor.setStrength(strength);
 		
 		
 		

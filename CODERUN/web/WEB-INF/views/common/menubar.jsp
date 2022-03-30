@@ -48,6 +48,12 @@
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
                         <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
                     	</c:if>
+                    	<c:if test="${ sessionScope.loginMember.type eq '관리자' }">
+                       	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/admin/dashboard">대시보드</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/board/list">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/modify">회원 정보</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/member/logout">로그아웃</a></li>
+           				</c:if>
                     </ul>
                 </div>
             </div>

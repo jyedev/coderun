@@ -20,6 +20,8 @@ import com.coderun.jsp.member.model.dao.MemberDAO;
 import com.coderun.jsp.member.model.dao.PaymentDAO;
 import com.coderun.jsp.member.model.dto.MemberDTO;
 import com.coderun.jsp.member.model.dto.PaymentDTO;
+import com.coderun.jsp.mentor.model.dao.MentorDAO;
+import com.coderun.jsp.mentor.model.dto.MentorDTO;
 
 public class AdminService {
 	
@@ -27,6 +29,7 @@ public class AdminService {
 	private final PaymentDAO paymentDAO;
 	private final CalculationDAO calculationDAO;
 	private final RequestDAO requestDAO;
+	private final MentorDAO mentorDAO;
 	private final ReportDAO reportDAO;
 	public AdminService() {
 		
@@ -34,20 +37,9 @@ public class AdminService {
 		paymentDAO = new PaymentDAO();
 		calculationDAO = new CalculationDAO();
 		requestDAO = new RequestDAO();
+		mentorDAO = new MentorDAO();
 		reportDAO = new ReportDAO();
 	}
-	
-//	public List<MemberDTO> selectAllEmp() {
-//		
-//		SqlSession session = getSqlSession();
-//				
-//		List<MemberDTO> memList = memberDAO.selectAllMember(session);
-//
-//		session.close();
-//		
-//		return memList;
-//	}
-	
 	
 	// 검색한 회원 목록 조회용 메소드
 	public Map<String, Object> selectMemberList(int pageNo, Map<String, String> searchMap) {
@@ -102,7 +94,27 @@ public class AdminService {
 		
 		return memberDetail;
 	}
-    
+	// 해당 아이디를 가진 멘토의 상세정보
+	public MentorDTO selectOneMentor(String memberId) {
+		
+		SqlSession session = getSqlSession();
+		
+		MentorDTO mentorDetail = null;
+		
+		mentorDetail = mentorDAO.selectOneMentor(session, memberId);
+		
+		if(mentorDetail != null) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return mentorDetail;
+	}
+	
+	
 	public Map<String, Object> selectPaymentList(int pageNo, Map<String, String> searchMap) {
 		
 		SqlSession session = getSqlSession();
@@ -198,6 +210,29 @@ public class AdminService {
         return returnMap;
      }
 
+	public int acceptMentor(int reqNo) {
+
+		SqlSession session = getSqlSession();
+		
+		int result = RequestDAO.acceptMentor(session, reqNo);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		return result;
+	}
+
+	public int rejectMentor(int reqNo) {
+
+		SqlSession session = getSqlSession();
+		
+		int result = RequestDAO.rejectMentor(session, reqNo);
+		
+		if(result > 0) {
+
 	public Map<String, Object> selectReportList(int pageNo, Map<String, String> searchMap) {
 		
 		SqlSession session = getSqlSession();
@@ -239,15 +274,23 @@ public class AdminService {
 		reportDetail = reportDAO.selectOneReport(session, no);
 
 		if(reportDetail != null) {
+
 			session.commit();
 		} else {
 			session.rollback();
 		}
-		
-		
 		session.close();
 		
-		return reportDetail;
+		return reportDetail
+	}
+
+	
+
+	
+
+
+		
+		;
 	}
 
 }
