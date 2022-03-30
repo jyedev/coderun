@@ -24,6 +24,16 @@ public class RequestDAO {
 	
 		return session.selectList("RequestDAO.selectMentorList", selectCriteria);
 	}
+
+	public static int acceptMentor(SqlSession session, int reqNo) {
+		
+		return session.update("RequestDAO.acceptMentor", reqNo);
+	}
+
+	public static int rejectMentor(SqlSession session, int reqNo) {
+
+		return session.update("RequestDAO.rejectMentor", reqNo);
+	}
 	
 	
 }

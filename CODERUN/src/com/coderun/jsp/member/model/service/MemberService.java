@@ -170,4 +170,41 @@ public class MemberService {
 		return result;
 	}
 
+	public int acceptMentor(String memberId) {
+
+		SqlSession session = getSqlSession();
+		
+		int result = memberDAO.acceptMentor(session, memberId);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int rejectMentor(String memberId) {
+		SqlSession session = getSqlSession();
+		
+		int result = memberDAO.rejectMentor(session, memberId);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	
+
+	
+
 }

@@ -54,7 +54,7 @@
                                 </tbody>
                             </table>
                             <br>
-							<jsp:include page="../common/paging.jsp"/>
+							<jsp:include page="../common/paging_member.jsp"/>
                         </div>
                     </div>
                 </main>

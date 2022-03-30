@@ -32,6 +32,7 @@
 </style>
 </head>
 <body>
+  <jsp:include page="../common/menubar.jsp"/>
 	<section class="page-section bg" id="modify"
 		style="width: 1000px; margin: 0 auto;">
 		<div class="container">

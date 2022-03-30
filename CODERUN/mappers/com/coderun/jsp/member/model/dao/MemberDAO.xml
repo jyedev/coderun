@@ -203,6 +203,20 @@
 		 WHERE MEMBER_ID = #{ id }
 		   AND MEMBER_STATUS = 'Y'
 	</update>
+	
+	<update id="acceptMentor">
+		UPDATE TB_MEMBER
+		   SET MEMBER_TYPE = '멘토'
+		 WHERE MEMBER_ID = #{ memberId }
+		   AND MEMBER_STATUS = 'Y'
+	</update>
+	
+	<update id="rejectMentor">
+		UPDATE TB_MEMBER
+		   SET MEMBER_TYPE = '회원'
+		 WHERE MEMBER_ID = #{ memberId }
+		   AND MEMBER_STATUS = 'Y'
+	</update>
 
 
 </mapper>

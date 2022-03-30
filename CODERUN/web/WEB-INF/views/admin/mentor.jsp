@@ -15,6 +15,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+    <script type="text/javascript">
+		(function() {
+			const result = "${ requestScope.acceptMentorResult }"
+			
+			if(result == "success")
+				alert("멘토 승인에 성공했습니다.")
+			if(result == "failed")
+				alert("멘토 승인에 실패했습니다.")
+		})();
+	</script>
         <div id="layoutSidenav">
             <jsp:include page="../common/sidebar.jsp"/>
             <div id="layoutSidenav_content">
@@ -51,7 +61,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            <jsp:include page="../common/paging.jsp"/>
+                            <jsp:include page="../common/paging_mentor.jsp"/>
                         </div>
                     </div>
                 </main>

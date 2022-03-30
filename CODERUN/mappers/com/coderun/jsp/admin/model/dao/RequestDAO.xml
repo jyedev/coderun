@@ -76,7 +76,18 @@
 		 ) A
 		 WHERE A.RNUM >= #{ startRow }
 	</select>
-
+	
+	<update id="acceptMentor">
+		UPDATE TB_REQUEST
+		   SET REQ_APROV_STATUS = '승인'
+		 WHERE REQ_NO = ${ reqNo }
+	</update>
+	
+	<update id="rejectMentor">
+		UPDATE TB_REQUEST
+		   SET REQ_APROV_STATUS = '거절'
+		 WHERE REQ_NO = ${ reqNo }
+	</update>
 
 
 </mapper>
