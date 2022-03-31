@@ -41,11 +41,20 @@
        	</div>
        	<div class="btn-toolbar">
        		<div class="btn-group me-2">
+               	<c:if test="${ board.writerId == sessionScope.loginMember.id }">
             	<button class="btn btn-sm" type="button" onclick="updateBoard(${ board.no })">수정</button>
                	<button type="button" class="btn btn-sm" value="delete" onclick="deleteBoard()">삭제</button>
                	<form name="boardForm" method="post">
 					<input type="hidden" name="no" value="${ board.no }">
 				</form>
+               	</c:if>
+               	<c:if test="${ sessionScope.loginMember.type eq '관리자' }">
+            	<button class="btn btn-sm" type="button" onclick="updateBoard(${ board.no })">수정</button>
+               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteBoard()">삭제</button>
+               	<form name="boardForm" method="post">
+					<input type="hidden" name="no" value="${ board.no }">
+				</form>
+               	</c:if>
            	</div>
        	</div>
        	<br><br><br>
@@ -93,14 +102,6 @@
 									<input type="hidden" name="content" id="modifyCmtValue${ status.count }">
 								</form>
                				</div>
-               				</c:if>
-               				<!-- 댓글 작성자 아니면 신고 -->
-               				<c:if test="${ comment.writerId != sessionScope.loginMember.id }">
-               				<c:if test="${ sessionScope.loginMember.type eq '회원' || '멘토' }">
-               				<div class="btn-group me-2">
-               					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">신고</button>
-               				</div>
-               				</c:if>
                				</c:if>
                				<!-- 관리자면 수정, 삭제 가능 -->
                				<c:if test="${ sessionScope.loginMember.type eq '관리자' }">

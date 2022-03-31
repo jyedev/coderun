@@ -64,7 +64,7 @@
                         	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
                         	</c:if>
                         	<c:if test="${ member.freepassYn ne 'Y'}">
-                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')" disabled>재생</button></td>
                         	</c:if>
                         	</c:if>
                         </tr>

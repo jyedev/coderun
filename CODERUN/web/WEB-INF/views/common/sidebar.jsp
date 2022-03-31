@@ -59,12 +59,6 @@
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed"
-						href="${ pageContext.servletContext.contextPath }/admin/report/list">
-						신고 관리
-						<div class="sb-sidenav-collapse-arrow">
-							<i class="fas fa-angle-down"></i>
-						</div>
 					</a>
 				</div>
 			</div>

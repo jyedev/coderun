@@ -30,7 +30,7 @@ public class UpdateCommentServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/board/view?no=" + bdNo);
 		} else {
 			request.setAttribute("deleteCommentResult", "fail");
-			request.getRequestDispatcher("/WEB-INF/views/board/list").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
 		}
 	}
 
