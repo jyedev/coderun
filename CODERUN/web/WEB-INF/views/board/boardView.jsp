@@ -44,14 +44,14 @@
 		       	
 		       	<div class="btn-toolbar">
 	       			<!-- 게시글 작성자만 수정, 삭제 가능 -->
-	       			<c:if test="${ board.writerId == sessionScope.loginMember.id }">
+	       			<c:if test="${ board.writerId == sessionScope.loginMember.id or sessionScope.loginMember.id eq 'admin001'}">
 	       			<div class="btn-group me-2">
 	            	<button class="btn btn-sm" type="button" onclick="updateBoard(${ board.no })">수정</button>
 	               	<button type="button" class="btn btn-sm" value="delete" onclick="deleteBoard()">삭제</button>
 	               	</div>
 					</c:if>
 					<!-- 게시글 작성자 아니면 신고 -->
-       				<c:if test="${ board.writerId != sessionScope.loginMember.id }">
+       				<c:if test="${ board.writerId != sessionScope.loginMember.id or sessionScope.loginMember.id eq 'admin001'}">
        				<div class="btn-group me-2">
        					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
        				</div>
@@ -98,14 +98,14 @@
                			<p class="text-box mx-auto">${ comment.content }</p>
                			<div class="btn-toolbar">
                				<!-- 댓글 작성자만 수정, 삭제 가능 -->
-               				<c:if test="${ comment.writerId == sessionScope.loginMember.id }">
+               				<c:if test="${ comment.writerId == sessionScope.loginMember.id or sessionScope.loginMember.id eq 'admin001' }">
                				<div class="btn-group me-2">
                					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">수정</button>
                					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deletecheck">삭제</button>
                				</div>
                				</c:if>
                				<!-- 댓글 작성자 아니면 신고 -->
-               				<c:if test="${ comment.writerId != sessionScope.loginMember.id }">
+               				<c:if test="${ comment.writerId != sessionScope.loginMember.id or sessionScope.loginMember.id eq 'admin001'  }">
                				<div class="btn-group me-2">
                					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
                				</div>
@@ -179,43 +179,46 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <div class="modal-body">
-                	<form name="reportContent" method=get action=admin/report.jsp>
+               	<form name=form id="reportContent" method=post action="${ pageContext.servletContext.contextPath }/report/insert">
+               		<div class="modal-body">
                     <div class="mb-3">
                         사유를 선택해 주세요.
+                        <input type="hidden" value=${ report.memberId }>
+                        <input type="hidden" value=${ report.bdNo }>
+                        <input type="hidden" value=${ report.cmtNo }>
                         <br>
                         <br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios1" value="1">
                         <label class="form-check-label" for="exampleRadios1">
                             스팸홍보/도배글입니다.
                         </label>
                    		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios2" value="2">
                         <label class="form-check-label" for="exampleRadios2">
                             음란물입니다.
                         </label>
                    		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="3">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios3" value="3">
                         <label class="form-check-label" for="exampleRadios3">
                             불법 정보를 포함하고 있습니다.
                         </label>
                   		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="4">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios4" value="4">
                         <label class="form-check-label" for="exampleRadios4">
                             욕설/생명경시/혐오/차별적 표현입니다.
                         </label>
                   		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="5">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios5" value="5">
                         <label class="form-check-label" for="exampleRadios5">
                             개인정보 노출 게시물입니다.
                         </label>
                    		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="6">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios6" value="6">
                         <label class="form-check-label" for="exampleRadios6">
                             불쾌한 표현이 있습니다.
                         </label>
                    		<br>
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="7">
+                        <input class="form-check-input" type="radio" name="typeNo" id="exampleRadios7" value="7">
                         <label class="form-check-label" for="exampleRadios7">
                             명예훼손/저작권 침해 게시물입니다.
                         </label>
@@ -225,20 +228,8 @@
 		                <input type="submit" class="btn btn-primary" onclick="clickModify(reportContent)" value="완료">
 		            </div>
 		            
-				            <script>
-							    function clickModify(formName){
-							    	formName.action = "${ pageContext.servletContext.contextPath }/report/list";
-							    	formName.method = "post";
-									
-							    	
-							    	vWData.addParam('Identity_Yn_Code', $('input:radio[name=exampleRadios]:checked').val());//
-							    	
-									
-							    }
-							
-							    </script>
-			     	</form>
-                </div>
+		     		</div>
+		     	</form>
             </div>
         </div>
     </div>

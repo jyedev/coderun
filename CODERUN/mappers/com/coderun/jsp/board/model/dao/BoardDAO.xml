@@ -40,6 +40,13 @@
 		<association property="board" resultMap="boardResultMap"/>
 		<association property="comment" resultMap="commentResultMap"/>
 	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.board.model.dto.ReportReasonDTO" id="ReportReasonResultMap">
+		<id property="typeNo" column="REP_TYPE_NO"/>
+		<result property="reason" column="REP_REASON"/>
+		<association property="typeNo" resultMap="reportResultMap"/>
+		
+	</resultMap>
 		
 	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
 		<id property="id" column="MEMBER_ID"/>
@@ -227,7 +234,7 @@
          INTO TB_REPORT 
        (REP_NO, REP_MEMBER_ID, REP_BD_NO, REP_CMT_NO, REP_TYPE_NO)
        VALUES
-       ( SEQ_REP_NO.NEXTVAL, #{ memberId }, #{ bdNo }, #{ cmtNo }, #{typeNo})
+       ( SEQ_REP_NO.NEXTVAL, #{ memberId }, #{bdNo}, #{ cmtNo }, #{typeNo})
 	</insert>
 	
 </mapper>

@@ -16,10 +16,29 @@ import com.coderun.jsp.board.model.service.BoardService;
 
 @WebServlet("/report/insert")
 public class insertReportServlet extends HttpServlet {
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			int bdNo = Integer.parseInt(request.getParameter("bdNo"));
+			
+			BoardService boardService = new BoardService();
+			BoardDTO insertReport = boardService.selectBoardView(bdNo);
+			
+			String path = "";
+			if(insertReport != null) {
+				path = "/WEB-INF/views/common/success.jsp";
+				request.setAttribute("successCode", "insertReport");
+				request.setAttribute("board", insertReport);
+			} else {
+				path = "/WEB-INF/views/common/failed.jsp";
+				request.setAttribute("message", "신고글 작성에 실패하였습니다.");
+			}
+			
+			request.getRequestDispatcher(path).forward(request, response);
+			
+		}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memberId  = ((MemberDTO) request.getSession().getAttribute("loginMember")).getId();
+		String memberId = ((MemberDTO) request.getSession().getAttribute("loginMember")).getId();
 		int bdNo = Integer.parseInt(request.getParameter("bdNo"));
 		int cmtNo = Integer.parseInt(request.getParameter("cmtNo"));
 		int typeNo = Integer.parseInt(request.getParameter("typeNo"));
@@ -30,6 +49,7 @@ public class insertReportServlet extends HttpServlet {
 		newReport.setCmtNo(cmtNo);
 		newReport.setTypeNo(typeNo);
 		
+		
 		BoardService boardService = new BoardService();
 		int result = boardService.insertReport(newReport);
 		
@@ -39,7 +59,6 @@ public class insertReportServlet extends HttpServlet {
 			request.setAttribute("successCode", "insertReport");
 			
 		} else {
-			path = "/WEB-INF/views/board/insertBoard.jsp";
 			request.setAttribute("message", "신고글 작성에 실패하셨습니다.");
 		}
 		

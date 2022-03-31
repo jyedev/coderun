@@ -87,10 +87,11 @@
         <br>
         <br>
         <br>
+       <c:if test="${ !empty sessionScope.loginMember.id or sessionScope.loginMember.id eq 'admin001'}">
         <div class="mx-auto writebutton d-grid gap-0 d-md-flex justify-content-md-end">
           <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/board/insert'">글 작성</button>
           </div>
-        
+        </c:if>
     </section>
     <!-- --------------푸터-------------- -->
     <footer class="footer py-4 bg-light">
