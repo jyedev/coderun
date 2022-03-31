@@ -32,7 +32,7 @@ public class PaySuccessServlet extends HttpServlet {
 		}
 		
 		// 멘토 소개쪽으로 변경!!!!!!
-		request.getRequestDispatcher("/WEB-INF/views/mentor/payLecture.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/mentor/mentorList.jsp").forward(request, response);
 	}
 
 }

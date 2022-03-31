@@ -67,9 +67,10 @@
     		}, function (rsp) {
     			if(rsp.success) {
     				alert("결제되었습니다.");
-    				// location.href = "${ pageContext.servletContext.contextPath }";
+    				location.href = "${ pageContext.servletContext.contextPath }/mentor/paySuccess";
     			} else {
     				alert("결제 실패했습니다.");
+    				location.href = "${ pageContext.servletContext.contextPath }";
     			}
     		});
     	}
