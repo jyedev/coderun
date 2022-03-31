@@ -53,7 +53,12 @@
               </div>
        		<br><br>
 	        <div class="d-grid col-2 mx-auto">
-	           <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/mentor/pay'">프리패스 구매하기</button>
+	        	<c:if test="${ !empty sessionScope.loginMember }">
+		        <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/mentor/pay'">프리패스 구매하기</button>
+		        </c:if>
+		        <c:if test="${ empty sessionScope.loginMember }">
+		        <button class="btn btn-primary" type="button" onclick="alert('로그인 후 이용해 주세요.')">프리패스 구매하기</button>
+		        </c:if>
 	        </div>
         </div>  
     </section>
