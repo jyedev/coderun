@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/resources/img/favicon.png" />
     <title>CODERUN</title>
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -56,9 +56,18 @@
                         <tr>
                             <th scope="row">${ status.count }</th>
                             <td>${ curriculum.name }</td>
-                            <td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                            <c:if test="${ empty sessionScope.loginMember }">
+                            <td><button type="button" class="btn btn-warning" onclick="alert('로그인이 필요합니다.');">재생</button></td>
+                            </c:if>
+                        	<c:if test="${ sessionScope.loginMember.type eq '회원' }">
+                        	<c:if test="${ member.freepassYn eq 'Y'}">
+                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                        	</c:if>
+                        	<c:if test="${ member.freepassYn ne 'Y'}">
+                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                        	</c:if>
+                        	</c:if>
                         </tr>
-            
                        </c:forEach>
                     </tbody>
                 </table>
@@ -71,6 +80,7 @@
     		window.open(link);
     	}
     </script>
+
     
     <footer class="footer py-4 bg-light">
         <div class="container">

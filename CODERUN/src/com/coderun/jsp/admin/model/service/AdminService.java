@@ -229,7 +229,7 @@ public class AdminService {
 
 		SqlSession session = getSqlSession();
 		
-		int result = RequestDAO.rejectMentor(session, reqNo);
+		int result = RequestDAO.acceptMentor(session, reqNo);
 		
 		if(result > 0) {
 			session.commit();
@@ -290,14 +290,5 @@ public class AdminService {
 		
 		return reportDetail;
 	}
-
-	
-
-	
-
-
-		
-		
-	
 
 }

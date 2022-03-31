@@ -21,15 +21,13 @@ public class MentorSelectDetailServlet extends HttpServlet {
 	
 		String memberId = request.getParameter("memberId");
 		
-		
 		System.out.println("memberId : " + memberId);
 		
 		MentorService mentorService = new MentorService();
 		MentorDTO mentorDetail = mentorService.selectMentorDetail(memberId);
-
+		
 		
 		System.out.println("멘토 상세 : " + mentorDetail);
-		
 		
 		String path = "";
 		if(mentorDetail != null) {
