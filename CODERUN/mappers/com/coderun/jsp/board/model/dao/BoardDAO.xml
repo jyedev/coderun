@@ -12,7 +12,7 @@
 		<result property="update" column="BD_UPDATE"/>
 		<result property="delete" column="BD_DELETE"/>
 		
-		<association property="writer" resultMap="memberResultMap"/>
+		<association property="member" resultMap="memberResultMap"/>
 		<collection property="commentList" resultMap="commentResultMap"/>
 	</resultMap>
 	
@@ -25,7 +25,20 @@
 		<result property="delete" column="CMT_DELETE"/>
 		<result property="bdNo" column="CMT_BD_NO"/>
 		
-		<association property="writer" resultMap="memberResultMap"/>
+		<association property="member" resultMap="memberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.coderun.jsp.board.model.dto.ReportDTO" id="ReportResultMap">
+		<id property="no" column="REP_NO"/>
+		<result property="memberId" column="REP_MEMBER_ID"/>
+		<result property="bdNo" column="REP_BD_NO"/>
+		<result property="cmtNo" column="REP_CMT_NO"/>
+		<result property="typeNo" column="REP_TYPE_NO"/>
+		<result property="result" column="REP_RESULT"/>
+		
+		<association property="member" resultMap="memberResultMap"/>
+		<association property="board" resultMap="boardResultMap"/>
+		<association property="comment" resultMap="commentResultMap"/>
 	</resultMap>
 		
 	<resultMap type="com.coderun.jsp.member.model.dto.MemberDTO" id="memberResultMap">
@@ -156,4 +169,65 @@
 		   SET BD_DELETE = 'Y'
 		 WHERE BD_NO = #{ no }
 	</update>
+		
+	<select id="selectTotalReportCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+          FROM TB_REPORT
+    	<where>
+			<if test="searchCondition == 'memberId'">
+	           REP_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+			</if>
+			<if test="searchCondition == 'typeNo'">
+	           REP_TYPE_NO LIKE '%' || #{ searchValue } || '%'
+			</if>
+	       AND REP_RESULT = 'N'
+    	</where>
+	</select>
+	
+	<select id="selectReportList" resultMap="ReportResultMap">
+	
+		SELECT
+			   A.RNUM
+			 , A.REP_NO
+			 , A.REP_MEMBER_ID
+			 , A.REP_BD_NO
+			 , A.REP_CMT_NO
+			 , A.REP_TYPE_NO
+			 , A.REP_RESULT
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.REP_NO
+					 , B.REP_MEMBER_ID
+					 , B.REP_BD_NO
+					 , B.REP_CMT_NO
+					 , B.REP_TYPE_NO
+					 , B.REP_RESULT
+		  		  FROM (SELECT C.REP_NO
+							 , C.REP_MEMBER_ID
+							 , C.REP_BD_NO
+							 , C.REP_CMT_NO
+							 , C.REP_TYPE_NO
+							 , C.REP_RESULT
+		  		  		  FROM TB_REPORT C
+		<if test="searchCondition == 'memberId'">
+           REP_MEMBER_ID LIKE '%' || #{ searchValue } || '%'
+		</if>
+		<if test="searchCondition == 'typeNo'">
+           REP_TYPE_NO LIKE '%' || #{ searchValue } || '%'
+		</if>
+	 	)B
+		<![CDATA[
+		 WHERE ROWNUM <= #{ endRow }
+		 ]]>
+		 ) A
+		 WHERE A.RNUM >= #{ startRow }
+	</select>
+	
+	<insert id="insertReport">
+       INSERT
+         INTO TB_REPORT 
+       (REP_NO, REP_MEMBER_ID, REP_BD_NO, REP_CMT_NO, REP_TYPE_NO)
+       VALUES
+       ( SEQ_REP_NO.NEXTVAL, #{ memberId }, #{ bdNo }, #{ cmtNo }, #{typeNo})
+	</insert>
+	
 </mapper>

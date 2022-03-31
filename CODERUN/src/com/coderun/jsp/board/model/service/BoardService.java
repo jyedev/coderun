@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.coderun.jsp.member.model.dto.MemberDTO;
 import com.coderun.jsp.board.model.dao.BoardDAO;
 import com.coderun.jsp.board.model.dto.BoardDTO;
+import com.coderun.jsp.board.model.dto.ReportDTO;
 import com.coderun.jsp.common.paging.Pagenation;
 import com.coderun.jsp.common.paging.SelectCriteria;
 
@@ -21,7 +22,6 @@ public class BoardService {
 	public BoardService() {
 		boardDAO = new BoardDAO();
 	}
-	
 	
 	/* 게시물 전체 조회용 메소드 */
 	public Map<String, Object> selectBoardList(int pageNo, Map<String, String> searchMap) {
@@ -121,6 +121,59 @@ public class BoardService {
 		SqlSession session = getSqlSession();
 		
 		int result = boardDAO.deleteBoard(session, no);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+	
+	/* 신고글 전체 조회용 메소드 */
+	public Map<String, Object> selectReportList(int pageNo, Map<String, String> searchMap) {
+		
+		SqlSession session = getSqlSession();
+		
+		int totalCount = boardDAO.selectTotalReportCount(session, searchMap);
+		System.out.println("totalReportCount : " + totalCount);
+		
+		/* 한 페이지에 보여 줄 게시물 수 */
+		int limit = 10;		
+		/* 한 번에 보여질 페이징 버튼의 갯수 */
+		int buttonAmount = 5;
+		
+		/* 페이징 처리를 위한 로직 호출 후 페이징 처리에 관한 정보를 담고 있는 인스턴스를 반환받는다. */
+		SelectCriteria selectCriteria = null;
+		
+		if(searchMap.get("searchCondition") != null && !"".equals(searchMap.get("searchCondition"))) {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchMap.get("searchCondition"), searchMap.get("searchValue"));
+		} else {
+			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+		}
+		
+		System.out.println(selectCriteria);
+		
+		List<ReportDTO> reportList = boardDAO.selectReportList(session, selectCriteria);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("reportList", reportList);
+		returnMap.put("selectCriteria", selectCriteria);
+		
+		session.close();
+		
+		return returnMap;
+	}
+	
+	/* 신고글 등록용 메소드 */
+	public int insertReport(ReportDTO newReport) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = boardDAO.insertReport(session, newReport);
 		
 		if(result > 0) {
 			session.commit();

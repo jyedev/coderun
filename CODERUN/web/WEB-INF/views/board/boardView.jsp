@@ -53,7 +53,7 @@
 					<!-- 게시글 작성자 아니면 신고 -->
        				<c:if test="${ board.writerId != sessionScope.loginMember.id }">
        				<div class="btn-group me-2">
-       					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modal">신고</button>
+       					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
        				</div>
        				</c:if>
        				
@@ -107,7 +107,7 @@
                				<!-- 댓글 작성자 아니면 신고 -->
                				<c:if test="${ comment.writerId != sessionScope.loginMember.id }">
                				<div class="btn-group me-2">
-               					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportmodal">신고</button>
+               					<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">신고</button>
                				</div>
                				</c:if>
         				</div>
@@ -170,71 +170,81 @@
 		</div>
 	</div>
 	
-	<!-- 신 모달 -->
-	<div class="modal" id="reportmodal" tabindex="-1">
+	<!-- 신고 모달 -->
+	<div class="modal" id="reportModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">신고</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                
                 <div class="modal-body">
+                	<form name="reportContent" method=get action=admin/report.jsp>
                     <div class="mb-3">
                         사유를 선택해 주세요.
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                            <label class="form-check-label" for="exampleRadios1">
-                                스팸홍보/도배글입니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                                음란물입니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                            <label class="form-check-label" for="exampleRadios3">
-                                불법 정보를 포함하고 있습니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
-                            <label class="form-check-label" for="exampleRadios4">
-                                욕설/생명경시/혐오/차별적 표현입니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="option5">
-                            <label class="form-check-label" for="exampleRadios5">
-                                개인정보 노출 게시물입니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="option6">
-                            <label class="form-check-label" for="exampleRadios6">
-                                불쾌한 표현이 있습니다.
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="option7">
-                            <label class="form-check-label" for="exampleRadios7">
-                                명예훼손/저작권 침해 게시물입니다.
-                            </label>
-                        </div>
+                        <br>
+                        <br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            스팸홍보/도배글입니다.
+                        </label>
+                   		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            음란물입니다.
+                        </label>
+                   		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="3">
+                        <label class="form-check-label" for="exampleRadios3">
+                            불법 정보를 포함하고 있습니다.
+                        </label>
+                  		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="4">
+                        <label class="form-check-label" for="exampleRadios4">
+                            욕설/생명경시/혐오/차별적 표현입니다.
+                        </label>
+                  		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="5">
+                        <label class="form-check-label" for="exampleRadios5">
+                            개인정보 노출 게시물입니다.
+                        </label>
+                   		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="6">
+                        <label class="form-check-label" for="exampleRadios6">
+                            불쾌한 표현이 있습니다.
+                        </label>
+                   		<br>
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="7">
+                        <label class="form-check-label" for="exampleRadios7">
+                            명예훼손/저작권 침해 게시물입니다.
+                        </label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">완료</button>
+                    <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		                <input type="submit" class="btn btn-primary" onclick="clickModify(reportContent)" value="완료">
+		            </div>
+		            
+				            <script>
+							    function clickModify(formName){
+							    	formName.action = "${ pageContext.servletContext.contextPath }/report/list";
+							    	formName.method = "post";
+									
+							    	
+							    	vWData.addParam('Identity_Yn_Code', $('input:radio[name=exampleRadios]:checked').val());//
+							    	
+									
+							    }
+							
+							    </script>
+			     	</form>
                 </div>
             </div>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script>
+   	<script>
 	    function updateBoard(no){
 			location.href = "${ pageContext.servletContext.contextPath }/board/update?no="+no;
 		}	function deleteBoard(){
@@ -244,5 +254,6 @@
 			}
 		}
     </script>
+   	
 </body>
 </html>

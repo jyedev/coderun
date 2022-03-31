@@ -7,7 +7,7 @@ import com.coderun.jsp.member.model.dto.MemberDTO;
 public class CommentDTO {
 	private int no;
 	private String writerId;
-	private MemberDTO writer;
+	private MemberDTO member;
 	private String content;
 	private Date date;
 	private Date update;
@@ -17,12 +17,12 @@ public class CommentDTO {
 	
 	public CommentDTO() {}
 
-	public CommentDTO(int no, String writerId, MemberDTO writer, String content, Date date, Date update, String delete,
+	public CommentDTO(int no, String writerId, MemberDTO member, String content, Date date, Date update, String delete,
 			int bdNo, BoardDTO board) {
 		super();
 		this.no = no;
 		this.writerId = writerId;
-		this.writer = writer;
+		this.member = member;
 		this.content = content;
 		this.date = date;
 		this.update = update;
@@ -47,12 +47,12 @@ public class CommentDTO {
 		this.writerId = writerId;
 	}
 
-	public MemberDTO getWriter() {
-		return writer;
+	public MemberDTO getMember() {
+		return member;
 	}
 
-	public void setWriter(MemberDTO writer) {
-		this.writer = writer;
+	public void setMember(MemberDTO member) {
+		this.member = member;
 	}
 
 	public String getContent() {
@@ -105,8 +105,10 @@ public class CommentDTO {
 
 	@Override
 	public String toString() {
-		return "CommentDTO [no=" + no + ", writerId=" + writerId + ", writer=" + writer + ", content=" + content
+		return "CommentDTO [no=" + no + ", writerId=" + writerId + ", member=" + member + ", content=" + content
 				+ ", date=" + date + ", update=" + update + ", delete=" + delete + ", bdNo=" + bdNo + ", board=" + board
 				+ "]";
 	}
+
+	
 }

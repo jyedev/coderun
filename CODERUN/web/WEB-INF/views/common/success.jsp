@@ -31,6 +31,11 @@
 				successMessage = "게시글이 삭제되었습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/board/list";
 				break;
+			
+			case "insertReport" : 
+				successMessage = "신고글이 등록되었습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/board/list";
+				break;
 
 			}
 			

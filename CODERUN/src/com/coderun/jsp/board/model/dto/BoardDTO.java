@@ -11,7 +11,7 @@ public class BoardDTO {
 	private int no;
 	private String title;
 	private String writerId; 
-	private MemberDTO writer;
+	private MemberDTO member;
 	private String content;
 	private Date date;
 	private Date update;
@@ -20,13 +20,13 @@ public class BoardDTO {
 	
 	public BoardDTO() {}
 
-	public BoardDTO(int no, String title, String writerId, MemberDTO writer, String content, Date date, Date update,
+	public BoardDTO(int no, String title, String writerId, MemberDTO member, String content, Date date, Date update,
 			String delete, List<CommentDTO> commentList) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.writerId = writerId;
-		this.writer = writer;
+		this.member = member;
 		this.content = content;
 		this.date = date;
 		this.update = update;
@@ -58,12 +58,12 @@ public class BoardDTO {
 		this.writerId = writerId;
 	}
 
-	public MemberDTO getWriter() {
-		return writer;
+	public MemberDTO getMember() {
+		return member;
 	}
 
-	public void setWriter(MemberDTO writer) {
-		this.writer = writer;
+	public void setMember(MemberDTO member) {
+		this.member = member;
 	}
 
 	public String getContent() {
@@ -108,9 +108,12 @@ public class BoardDTO {
 
 	@Override
 	public String toString() {
-		return "BoardDTO [no=" + no + ", title=" + title + ", writerId=" + writerId + ", writer=" + writer
+		return "BoardDTO [no=" + no + ", title=" + title + ", writerId=" + writerId + ", member=" + member
 				+ ", content=" + content + ", date=" + date + ", update=" + update + ", delete=" + delete
 				+ ", commentList=" + commentList + "]";
 	}
+	
+	
+
 
 }

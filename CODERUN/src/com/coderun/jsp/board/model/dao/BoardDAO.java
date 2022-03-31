@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.coderun.jsp.board.model.dto.BoardDTO;
+import com.coderun.jsp.board.model.dto.ReportDTO;
 import com.coderun.jsp.common.paging.SelectCriteria;
 
 public class BoardDAO {
@@ -46,6 +47,25 @@ public class BoardDAO {
 		
 		return session.update("BoardDAO.deleteBoard", no);
 		
+	}
+	
+	public int selectTotalReportCount(SqlSession session, Map<String, String> searchMap) {
+		
+		return session.selectOne("BoardDAO.selectTotalReportCount", searchMap);
+				
+	}
+	
+	
+	/* 신고 목록 전체 조회용 메소드 */
+	public List<ReportDTO> selectReportList(SqlSession session, SelectCriteria selectCriteria) {
+		
+		return session.selectList("BoardDAO.selectReportList", selectCriteria);
+	}
+	
+	/* 신고글 작성용 메소드*/
+	public int insertReport(SqlSession session, ReportDTO newReport) {
+		
+		return session.insert("BoardDAO.insertReport", newReport);
 	}
 }
 	
