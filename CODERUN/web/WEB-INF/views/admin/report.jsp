@@ -62,7 +62,7 @@
                                 </tbody>
                             </table>
                             <br>
-							<jsp:include page="../common/paging.jsp"/>
+							<jsp:include page="../common/paging_report.jsp"/>
                         </div>
                     </div>
                 </main>
