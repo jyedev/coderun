@@ -42,7 +42,7 @@ public class MemberLoginServlet extends HttpServlet {
 			System.out.println(loginMember.getType());
 			
 			if("관리자".equals(loginMember.getType().trim())) {
-				response.sendRedirect(request.getContextPath() + "/admin/dashboard");
+				response.sendRedirect(request.getContextPath() + "/admin/member/list");
 			} else {
 				response.sendRedirect(request.getContextPath());
 			}

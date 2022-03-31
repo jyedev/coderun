@@ -30,14 +30,8 @@
 						src="${ pageContext.servletContext.contextPath }/resources/img/logo.png"
 						alt="..." style="width: 190px; margin-left: 10px;" /></a> <br> <br>
 					<a class="nav-link collapsed"
-						href="${ pageContext.servletContext.contextPath }/admin/dashboard">
-						대시보드
-						<div class="sb-sidenav-collapse-arrow">
-							<i class="fas fa-angle-down"></i>
-						</div>
-					</a> <a class="nav-link collapsed"
 						href="${ pageContext.servletContext.contextPath }/admin/member/list">
-						회원 정보 조회
+						회원 관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
@@ -59,13 +53,15 @@
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/board/list"> 게시판
-						관리
+					</a> <a class="nav-link collapsed"
+						href="${ pageContext.servletContext.contextPath }/board/list">
+						게시판 관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
-					</a> <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/report/list"> 신고
-						관리
+					</a> <a class="nav-link collapsed"
+						href="${ pageContext.servletContext.contextPath }/admin/report/list">
+						신고 관리
 						<div class="sb-sidenav-collapse-arrow">
 							<i class="fas fa-angle-down"></i>
 						</div>
