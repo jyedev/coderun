@@ -25,16 +25,6 @@
     </style>
 </head>
 <body>
-<script>
-	(function(){
-		const modifyPwdResult = "${ requestScope.modifyPasswordResult }";
-		if(modifyPwdResult == "success"){
-		alert('비밀번호 수정에 성공했습니다.')
-		} else if(modifyPwdResult == "fail"){
-		alert('비밀번호 수정에 실패했습니다.')
-		}
-	})();
-</script>
 	<jsp:include page="../common/menubar.jsp"/>
     <section class="page-section bg" id="modify" style="width: 1000px; margin: 0 auto;">
         <div class="container">
@@ -58,7 +48,7 @@
 		      		</div>
 		      		<div class="d-grid col-2 mx-auto">
 		      		<br>
-                    	<button class="btn btn-primary" type="submit" id="updateBtn">사진 변경</button>
+                    	<button class="btn btn-primary" type="submit" id="updateImgBtn">사진 변경</button>
                 	</div>
 	            </form>
 	            
@@ -142,7 +132,7 @@
 	          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	        </div>
 	        <div class="modal-body">
-	          <form name="modifyPwd">
+	          <form name="modifyPwd" method="post" action="${ pageContext.servletContext.contextPath }/member/modifyPassword">
 	            <div class="mb-3">
 	              <label for="recipient-name" class="col-form-label">현재 비밀번호</label>
 	              <input type="password" class="form-control" name="checkPwd" id="checkPwd" placeholder="현재 비밀번호" required>
@@ -159,47 +149,8 @@
                 </div>
 	            <div class="modal-footer">
 	              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	              <button type="button" class="btn btn-primary" id="updateBtn" onclick="clickModify(modifyPwd)">변경</button>
+	              <button type="submit" class="btn btn-primary" id="modifyPwdBtn">변경</button>
 	            </div>
-	            
-	            <script>
-				function clickModify(formName) {
-					formName.action = "${ pageContext.servletContext.contextPath }/member/modifyPassword";
-					formName.method = "post";
-					
-					
-					if (checkPassword(document.getElementById('memberPwd').value, document.getElementById('memberPwd2').value)) {
-						formName.submit();
-					}
-
-					function checkPassword(memberPwd, memberPwd2) {
-						if (!checkExistData(memberPwd, "비밀번호를"))
-							return false;
-						if (!checkExistData(memberPwd2, "비밀번호 확인을"))
-							return false;
-						
-						var pwd1 = document.getElementById('memberPwd');
-						var pwd2 = document.getElementById('memberPwd2');
-						
-						var memberPwdRegExp = /^[a-zA-z0-9]{8,16}$/;
-						if (!memberPwdRegExp.test(pwd1.value)) {
-							alert("비밀번호는 영문 대소문자와 숫자 8~16자리로 입력해야합니다!");
-							pwd1.value = "";
-							pwd1.focus();
-							return false;
-						}
-						
-						if (memberPwd != memberPwd2) {
-							alert("비밀번호 확인이 올바르지 않습니다.");
-							pwd1.value = "";
-							pwd2.value = "";
-							pwd2.focus();
-							return false;
-						}						
-					}
-				}
-				</script>
-	            
 	          </form>
 	        </div>
 	      </div>
@@ -251,8 +202,53 @@
 			}
 		})();
 		
+		(function(){
+			const modifyPwdResult = "${ requestScope.modifyPasswordResult }";
+			if(modifyPwdResult == "success"){
+			alert('비밀번호 수정에 성공했습니다. 메인으로 돌아갑니다.');
+			location.href = "${ pageContext.servletContext.contextPath }/member/logout";
+			} else if(modifyPwdResult == "fail"){
+			alert('비밀번호 수정에 실패했습니다.');
+			}
+		})();
+		
 		function clickRemove(){
 			location.href = "${ pageContext.servletContext.contextPath }/member/remove";
+		}
+		
+		function clickModify(formName) {
+			formName.action = "${ pageContext.servletContext.contextPath }/member/modifyPassword";
+			formName.method = "post";
+			
+			if (checkPwd(document.getElementById('memberPwd').value, document.getElementById('memberPwd2').value)) {
+				formName.submit();
+			}
+	
+			function checkPwd(memberPwd, memberPwd2) {
+				if (!checkExistData(memberPwd, "비밀번호를"))
+					return false;
+				if (!checkExistData(memberPwd2, "비밀번호 확인을"))
+					return false;
+				
+				let pwd1 = document.getElementById('memberPwd');
+				let pwd2 = document.getElementById('memberPwd2');
+				
+				let memberPwdRegExp = /^[a-zA-z0-9]{8,16}$/;
+				if (!memberPwdRegExp.test(pwd1.value)) {
+					alert("비밀번호는 영문 대소문자와 숫자 8~16자리로 입력해야합니다!");
+					pwd1.value = "";
+					pwd1.focus();
+					return false;
+				}
+				
+				if (memberPwd != memberPwd2) {
+					alert("비밀번호 확인이 올바르지 않습니다.");
+					pwd1.value = "";
+					pwd2.value = "";
+					pwd2.focus();
+					return false;
+				}				
+			}
 		}
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
