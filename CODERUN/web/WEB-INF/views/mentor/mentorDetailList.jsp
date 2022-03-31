@@ -56,9 +56,18 @@
                         <tr>
                             <th scope="row">${ status.count }</th>
                             <td>${ curriculum.name }</td>
-                            <td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                            <c:if test="${ empty sessionScope.loginMember }">
+                            <td><button type="button" class="btn btn-warning" onclick="alert('로그인이 필요합니다.');">재생</button></td>
+                            </c:if>
+                        	<c:if test="${ sessionScope.loginMember.type eq '회원' }">
+                        	<c:if test="${ member.freepassYn eq 'Y'}">
+                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                        	</c:if>
+                        	<c:if test="${ member.freepassYn ne 'Y'}">
+                        	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
+                        	</c:if>
+                        	</c:if>
                         </tr>
-            
                        </c:forEach>
                     </tbody>
                 </table>
@@ -71,6 +80,7 @@
     		window.open(link);
     	}
     </script>
+
     
     <footer class="footer py-4 bg-light">
         <div class="container">
