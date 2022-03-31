@@ -63,7 +63,8 @@
     			pay_method: "card",
     			merchant_uid : 'merchant_' + new Date().getTime(),
     			name: '결제 테스트',
-    			amount: 100000
+    			// 임의로 가격 조정
+    			amount: 10
     		}, function (rsp) {
     			if(rsp.success) {
     				alert("결제되었습니다.");
