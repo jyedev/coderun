@@ -1,15 +1,16 @@
 package com.coderun.jsp.admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.coderun.jsp.admin.model.service.AdminService;
 import com.coderun.jsp.member.model.service.MemberService;
-import com.coderun.jsp.mentor.model.service.MentorService;
 
 @WebServlet("/admin/accept")
 public class MentorAcceptServlet extends HttpServlet {
@@ -23,11 +24,13 @@ public class MentorAcceptServlet extends HttpServlet {
 		int result1 = new AdminService().acceptMentor(reqNo);
 		int result2 = new MemberService().acceptMentor(memberId);
 		
+		HttpSession session = request.getSession();
+		
 		if(result1 > 0 && result2 > 0) {
-			request.setAttribute("acceptMentorResult", "success");
+			session.setAttribute("acceptMentorResult", "success");
 			response.sendRedirect(request.getContextPath() + "/admin/mentordetail?memberId=" + memberId);
 		} else {
-			request.setAttribute("acceptMentorResult", "failed");
+			session.setAttribute("acceptMentorResult", "failed");
 			response.sendRedirect(request.getContextPath() + "/admin/mentordetail?memberId=" + memberId);
 		}
 		

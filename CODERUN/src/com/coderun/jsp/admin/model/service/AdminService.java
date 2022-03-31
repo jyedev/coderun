@@ -232,6 +232,13 @@ public class AdminService {
 		int result = RequestDAO.rejectMentor(session, reqNo);
 		
 		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		return result;
+	}
 
 	public Map<String, Object> selectReportList(int pageNo, Map<String, String> searchMap) {
 		
@@ -281,7 +288,7 @@ public class AdminService {
 		}
 		session.close();
 		
-		return reportDetail
+		return reportDetail;
 	}
 
 	
@@ -290,7 +297,7 @@ public class AdminService {
 
 
 		
-		;
-	}
+		
+	
 
 }

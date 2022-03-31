@@ -26,30 +26,11 @@
 </style>
 </head>
 <body>
-    <script type="text/javascript">
-		(function() {
-			const result = "${ requestScope.acceptMentorResult }"
-			
-			if(result == "success")
-				alert("멘토 승인에 성공했습니다.")
-			if(result == "failed")
-				alert("멘토 승인에 실패했습니다.")
-		})();
-		
-		(function() {
-			const result = "${ requestScope.rejectMentorResult }"
-			
-			if(result == "success")
-				alert("멘토 거절에 성공했습니다.")
-			if(result == "failed")
-				alert("멘토 거절에 실패했습니다.")
-		})();
-		
-	</script>
 	<jsp:include page="../common/menubar.jsp" />
 	<section class="page-section bg" id="teacher-info"
 		style="width: 1000px; margin: 0 auto;">
 		<div class="container">
+		<input type="hidden" name="email" id="sendEmail" value="${ mentorDetail.member.email }">
 			<br> <br>
 			<c:if test="${ empty mentorDetail.member.image.edit }">
 				<img
@@ -67,6 +48,10 @@
 			<div class="mb-3">                                                                                                                                                                                                      
              <label for="exampleFormControlInput1" class="form-label">닉네임</label>
              <input type="text" class="form-control" name="nickname" value="${ mentorDetail.nickname }" readonly>
+            </div>
+            <div class="mb-3">                                                                                                                                                                                                      
+             <label for="exampleFormControlInput1" class="form-label">이메일</label>
+             <input type="text" class="form-control" name="email" id="sendEmail" value="${ mentorDetail.member.email }" readonly>
             </div>
 			<br>
 			<h4>강점</h4>
@@ -139,11 +124,29 @@
 			}
 			
 		</script>
+		<script type="text/javascript">
+		(function() {
+			const result1 = "${ sessionScope.acceptMentorResult }";
+			<% session.removeAttribute("acceptMentorResult"); %>
+			if(result1 == "success") {
+				alert("멘토 승인에 성공했습니다.");
+				var email = document.getElementById('sendEmail');
+				var sendEmail = email.value;
+				console.log(email);
+				console.log(sendEmail);
+				location.href = "${ pageContext.servletContext.contextPath }/admin/sendEmail?email=" + sendEmail + "&&result2=success";
+			} else if(result1 == "failed"){
+				alert("멘토 승인에 실패했습니다.");
+			}
+			
+		})();
+	</script>
+
 		
 		
 	</footer>
-	
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

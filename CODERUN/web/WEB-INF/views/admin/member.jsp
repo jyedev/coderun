@@ -60,69 +60,6 @@
                 </main>
             </div>
         </div>
-        <!-- popup-->
-        <div class="modal hide" tabindex="-1" id="user-detail" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="id"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="margin-left: 30px;">
-                        <br>
-                        <div class="row">
-                            <div class="col-4">
-                                <img src="${ pageContext.servletContext.contextPath }/resources/img/profile-example.png" class="imgArea" id="imgArea" style="width: 150px;">
-                            </div>
-                            <div class="col-8">
-                                <h5>기본 정보</h5><br>
-                                <div class="mb-3 row">
-                                    <label for="exampleFormControlInput1" class="col-md-3 col-form-label">이름</label>
-                                    <div class="col-md-9">
-                                        <input type="text" readonly class="form-control-plaintext" id="exampleFormControlInput1" value="">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="exampleFormControlInput1" class="col-md-3 col-form-label">이메일</label>
-                                    <div class="col-md-9">
-                                        <input type="text" readonly class="form-control-plaintext" id="exampleFormControlInput1" value="">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="exampleFormControlInput1" class="col-md-3 col-form-label">생년월일</label>
-                                    <div class="col-md-9">
-                                        <input type="text" readonly class="form-control-plaintext" id="exampleFormControlInput1" value="">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="exampleFormControlInput1" class="col-md-3 col-form-label">성별</label>
-                                    <div class="col-md-9">
-                                        <input type="text" readonly class="form-control-plaintext" id="exampleFormControlInput1" value="">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="exampleFormControlInput1" class="col-md-3 col-form-label">유형</label>
-                                    <div class="col-md-9">
-                                        <input type="text" readonly class="form-control-plaintext" id="exampleFormControlInput1" value="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br><br>
-                        <!-- 결제정보 넣어야 함 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                        <h5>자기 소개</h5><br>
-                        <div class="mb-3">
-                            <textarea class="form-control-plaintext" id="exampleFormControlTextarea1" rows="5" style="resize: none" readonly>인간의 생명을 봄바람을 가는 꽃이 소담스러운 찾아 피가 있다. 예수는 맺어, 못할 얼마나 사람은 무한한 하는 사랑의 봄바람을 힘있다. 생명을 위하여서 붙잡아 가는 쓸쓸하랴? 희망의 영락과 그것은 물방아 열매를 부패뿐이다. 전인 불어 때에, 보배를 방황하였으며, 것이다. 살 눈이 끓는 시들어 이것은 청춘에서만 봄바람이다. 눈이 불어 황금시대를 너의 것은 가치를 만물은 맺어, 있는가? 인간에 못할 가치를 동산에는 소리다.이것은 듣는다. 못할 힘차게 평화스러운 속에 못할 봄바람을 그들은 구하지 가는 아니다. 보는 이상, 되는 이것이다. 실현에 어디 넣는 대고, 과실이 풍부하게 기관과 이상은 말이다. 착목한는 가장 방황하여도, 튼튼하며, 방황하였으며, 천하를 기쁘며, 아니다. 능히 못할 눈에 이상 돋고, 이상 것이다. 할지라도 못하다 속에 보이는 그들은 설레는 되려니와, 것은 칼이다. 이는 방황하였으며, 끓는 몸이 투명하되 끝까지 길지 동산에는 목숨을 있으랴? 하는 우는 청춘 희망의 산야에 바로 인생을 방황하였으며, 무한한 것이다. 방황하여도, 인생에 새가 그리하였는가? 실로 이 피부가 트고, 인생을 꾸며 원대하고, 작고 있다. 이상이 풍부하게 위하여서 이상은 석가는 같이 살았으며, 속에서 이것이다. 청춘의 위하여서 없으면, 없는 두손을 무한한 눈에 앞이 봄바람이다. 것이 속에서 피에 얼마나 있는 주며, 것이다. 하여도 것은 싹이 공자는 있으랴? 불어 열매를 이것은 같으며, 희망의 같은 품에 것이다. 발휘하기 원대하고, 무엇을 약동하다. 뜨고, 뭇 우는 황금시대의 생명을 청춘의 공자는 아니다. 것은 주는 청춘의 그림자는 싹이 광야에서 힘차게 인간이 황금시대를 사막이다. 찾아 인생의 그들을 이 두기 원대하고, 그들의 수 것이다. 천고에 작고 역사를 끓는 교향악이다. 발휘하기 풀밭에 싸인 인간이 그러므로 부패뿐이다. 속에 있는 얼음과 가치를 것은 보이는 착목한는 것이다. 군영과 청춘의 속잎나고, 풀이 남는 이것이다. 끓는 대고, 얼마나 피고 이상의 때문이다.
-                            </textarea>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script>
         	function detailView(id){
         		location.href= '${ pageContext.servletContext.contextPath }/admin/memberdetail?id=' +id;
