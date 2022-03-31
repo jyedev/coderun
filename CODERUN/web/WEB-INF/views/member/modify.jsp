@@ -132,7 +132,7 @@
 	          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	        </div>
 	        <div class="modal-body">
-	          <form name="modifyPwd" method="post" action="${ pageContext.servletContext.contextPath }/member/modifyPassword">
+	          <form name="modifyPwd" method="post" action="${ pageContext.servletContext.contextPath }/member/modifyPassword" onsubmit="checkAll()">
 	            <div class="mb-3">
 	              <label for="recipient-name" class="col-form-label">현재 비밀번호</label>
 	              <input type="password" class="form-control" name="checkPwd" id="checkPwd" placeholder="현재 비밀번호" required>
