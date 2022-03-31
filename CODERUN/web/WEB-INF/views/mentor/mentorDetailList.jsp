@@ -60,10 +60,10 @@
                             <td><button type="button" class="btn btn-warning" onclick="alert('로그인이 필요합니다.');">재생</button></td>
                             </c:if>
                         	<c:if test="${ sessionScope.loginMember.type eq '회원' }">
-                        	<c:if test="${ member.freepassYn eq 'Y'}">
+                        	<c:if test="${ sessionScope.loginMember.freepassYn eq 'Y'}">
                         	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')">재생</button></td>
                         	</c:if>
-                        	<c:if test="${ member.freepassYn ne 'Y'}">
+                        	<c:if test="${ sessionScope.loginMember.freepassYn ne 'Y'}">
                         	<td><button type="button" class="btn btn-warning" onclick="curriPlay('${ curriculum.videoLink}')" disabled>재생</button></td>
                         	</c:if>
                         	</c:if>
