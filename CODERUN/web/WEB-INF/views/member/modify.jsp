@@ -215,41 +215,6 @@
 		function clickRemove(){
 			location.href = "${ pageContext.servletContext.contextPath }/member/remove";
 		}
-		
-		function clickModify(formName) {
-			formName.action = "${ pageContext.servletContext.contextPath }/member/modifyPassword";
-			formName.method = "post";
-			
-			if (checkPwd(document.getElementById('memberPwd').value, document.getElementById('memberPwd2').value)) {
-				formName.submit();
-			}
-	
-			function checkPwd(memberPwd, memberPwd2) {
-				if (!checkExistData(memberPwd, "비밀번호를"))
-					return false;
-				if (!checkExistData(memberPwd2, "비밀번호 확인을"))
-					return false;
-				
-				let pwd1 = document.getElementById('memberPwd');
-				let pwd2 = document.getElementById('memberPwd2');
-				
-				let memberPwdRegExp = /^[a-zA-z0-9]{8,16}$/;
-				if (!memberPwdRegExp.test(pwd1.value)) {
-					alert("비밀번호는 영문 대소문자와 숫자 8~16자리로 입력해야합니다!");
-					pwd1.value = "";
-					pwd1.focus();
-					return false;
-				}
-				
-				if (memberPwd != memberPwd2) {
-					alert("비밀번호 확인이 올바르지 않습니다.");
-					pwd1.value = "";
-					pwd2.value = "";
-					pwd2.focus();
-					return false;
-				}				
-			}
-		}
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/scripts.js"></script>
